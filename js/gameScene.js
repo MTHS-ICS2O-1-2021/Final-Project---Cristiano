@@ -13,7 +13,7 @@ class GameScene extends Phaser.Scene {
    * Adds a dangerous box
    */
   addBox(boxX, boxY) {
-    const box = this.physics.add.sprite(boxX, boxY, 'boxImage').setScale(2.0)
+    const box = this.physics.add.sprite(boxX, boxY, "boxImage").setScale(2.0)
     box
     this.boxGroup.add(box)
   }
