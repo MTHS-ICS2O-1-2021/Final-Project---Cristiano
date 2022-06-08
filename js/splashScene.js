@@ -6,23 +6,31 @@
 // Splash Scene
 
 class SplashScene extends Phaser.Scene {
-  // Constructor for varibles
+  /**
+   * Constructs varibles
+   */
   constructor() {
     super({ key: "splashScene" })
   }
 
-  // Ran once initialized
+  /**
+   * Initializes groups
+   */
   init(data) {
     this.cameras.main.setBackgroundColor("#ffffff")
   }
 
-  // Ran while preloading
+  /**
+   * Preloads files
+   */
   preload() {
     console.log("Splash Scene")
     this.load.image("splashSceneBackground", "assets/splashSceneImage.png")
   }
 
-  // Creating varibles
+  /**
+   * Creates varibles and functions
+   */
   create(data) {
     this.splashSceneBackgroundImage = this.add.sprite(
       0,
@@ -33,7 +41,9 @@ class SplashScene extends Phaser.Scene {
     this.splashSceneBackgroundImage.y = 1080 / 2
   }
 
-  // Ran every milisecond or so
+  /**
+   * Updates every milisecond
+   */
   update(time, delta) {
     if (time > 3000) {
       this.scene.switch("menuScene")

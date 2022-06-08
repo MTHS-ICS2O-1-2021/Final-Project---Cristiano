@@ -6,7 +6,9 @@
 // Menu Scene
 
 class MenuScene extends Phaser.Scene {
-  // Constructor for varibles
+  /**
+   * Constructs varibles
+   */
   constructor() {
     super({ key: "menuScene" })
 
@@ -19,19 +21,25 @@ class MenuScene extends Phaser.Scene {
     this.startButton = null
   }
 
-  // Ran once initialized
+  /**
+   * Initializes groups
+   */
   init(data) {
     this.cameras.main.setBackgroundColor("#b21d1d")
   }
 
-  // Ran while preloading
+  /**
+   * Preloads files
+   */
   preload() {
     console.log("Menu Scene")
 
     this.load.image("startButton", "assets/startButton.png")
   }
 
-  // Creating varibles
+  /**
+   * Creates varibles and functions
+   */
   create(data) {
     this.menuText = this.add
       .text(1920 / 2, 1080 / 2 - 200, "Test", this.menuTextStyle)
@@ -41,7 +49,9 @@ class MenuScene extends Phaser.Scene {
     this.startButton.on("pointerdown", () => this.onClick())
   }
 
-  // Ran every milisecond or so
+  /**
+   * Updates every milisecond
+   */
   update(time, delta) {}
 
   // Takes player to the game scene
