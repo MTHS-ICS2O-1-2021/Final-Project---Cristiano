@@ -12,27 +12,31 @@ class GameScene extends Phaser.Scene {
     this.player = null
     this.box = null
   }
-  
+
   init(data) {
     this.cameras.main.setBackgroundColor("#000000")
   }
-  
+
   preload() {
     console.log("Game Scene")
 
     this.load.image("playerImage", "assets/playerImage.png")
     this.load.image("boxImage", "assets/box.png")
   }
-  
+
   create(data) {
     this.player = this.physics.add.sprite(1920 / 2, 1080 / 2, "playerImage")
     this.box = this.physics.add.sprite(100, 100, "boxImage").setScale(2.0)
 
     // Collisions
-    this.physics.add.collider(this.player, this.box, function (playerCollide, boxCollide) {
-      playerCollide.x = 1920 / 2
-      playerCollide.y = 1080 / 2
-    }.bind(this))
+    this.physics.add.collider(
+      this.player,
+      this.box,
+      function (playerCollide, boxCollide) {
+        playerCollide.x = 1920 / 2
+        playerCollide.y = 1080 / 2
+      }.bind(this)
+    )
   }
   
   update(time, delta) {
