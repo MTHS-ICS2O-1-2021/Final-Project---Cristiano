@@ -6,8 +6,8 @@
 // Menu Scene
 
 /**
-  * Phaser Scene
-  */
+* Phaser Scene
+*/
 class MenuScene extends Phaser.Scene {
   /**
    * Constructs varibles

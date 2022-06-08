@@ -6,8 +6,8 @@
 // Game Scene
 
 /**
-  * Phaser Scene
-  */
+* Phaser Scene
+*/
 class GameScene extends Phaser.Scene {
   /**
    * Adds a dangerous box
@@ -48,17 +48,21 @@ class GameScene extends Phaser.Scene {
    * Creates varibles and functions
    */
   create(data) {
-    this.player = this.physics.add.sprite(1920 / 2, 1080 / 2, "playerImage")
+    this.player = this.physics.add.sprite(300, 50, "playerImage")
     this.boxGroup = this.add.group()
     this.addBox(100, 100)
+    this.addBox(100, 300)
+    this.addBox(100, 500)
+    this.addBox(100, 700)
+    this.addBox(500, 100)
 
     // Collisions
     this.physics.add.collider(
       this.player,
       this.boxGroup,
       function (playerCollide, boxCollide) {
-        playerCollide.x = 1920 / 2
-        playerCollide.y = 1080 / 2
+        playerCollide.x = 300
+        playerCollide.y = 50
       }.bind(this)
     )
   }
