@@ -1,16 +1,36 @@
 /* global Phaser */
 
-// Created by: Curtis Edwards & Titus Diceman
-// Created on: June 2022
-// This is the Phaser3 configuration file
+// Cristiano
+// Final-Project---Cristiano
+// June 7 2022
 
-/** Game scene.*/
+const debugMode = true
+
+import SplashScene from "./splashScene.js"
+import MenuScene from "./menuScene.js"
+import GameScene from "./gameScene.js"
+
+// Scenes
+const splashScene = new SplashScene()
+const menuScene = new MenuScene()
+const gameScene = new GameScene()
+
+// Game Settings
 const config = {
   type: Phaser.AUTO,
   width: 1920,
   height: 1080,
-  // set background color
-  backgroundColor: 0x5f6e7a,
+  physics: {
+    default: "arcade",
+    arcade: {
+      debug: debugMode
+    }
+  },
+  backgroundColor: 0xffffff,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
+  }
 }
 
 const game = new Phaser.Game(config)
