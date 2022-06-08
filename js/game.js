@@ -23,15 +23,25 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: debugMode
-    }
+      debug: debugMode,
+    },
   },
   backgroundColor: 0xffffff,
   scale: {
     mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH
-  }
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
 }
 
 const game = new Phaser.Game(config)
 console.log(game)
+
+game.scene.add("splashScene", splashScene)
+game.scene.add("menuScene", menuScene)
+game.scene.add("gameScene", gameScene)
+
+if (debugMode == true) {
+  game.scene.start("gameScene")
+} else {
+  game.scene.start("splashScene")
+}

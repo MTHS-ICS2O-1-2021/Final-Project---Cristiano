@@ -5,36 +5,71 @@
 // June 7 2022
 // Game Scene
 
+/**
+ * Phaser Scene
+ */
 class GameScene extends Phaser.Scene {
+  /**
+   * Adds a dangerous box
+   */
+  addBox(boxX, boxY) {
+    const box = this.physics.add.sprite(boxX, boxY, "boxImage").setScale(2.0)
+    box
+    this.boxGroup.add(box)
+  }
+
+  /**
+   * Constructs varibles
+   */
   constructor() {
     super({ key: "gameScene" })
 
     this.player = null
-    this.box = null
   }
-  
+
+  /**
+   * Initializes groups
+   */
   init(data) {
     this.cameras.main.setBackgroundColor("#000000")
   }
-  
+
+  /**
+   * Preloads files
+   */
   preload() {
     console.log("Game Scene")
 
     this.load.image("playerImage", "assets/playerImage.png")
     this.load.image("boxImage", "assets/box.png")
   }
-  
+
+  /**
+   * Creates varibles and functions
+   */
   create(data) {
-    this.player = this.physics.add.sprite(1920 / 2, 1080 / 2, "playerImage")
-    this.box = this.physics.add.sprite(100, 100, "boxImage").setScale(2.0)
+    this.player = this.physics.add.sprite(300, 50, "playerImage")
+    this.boxGroup = this.add.group()
+    this.addBox(100, 100)
+    this.addBox(100, 300)
+    this.addBox(100, 500)
+    this.addBox(100, 700)
+    this.addBox(500, 100)
 
     // Collisions
-    this.physics.add.collider(this.player, this.box, function (playerCollide, boxCollide) {
-      playerCollide.x = 1920 / 2
-      playerCollide.y = 1080 / 2
-    }.bind(this))
+    this.physics.add.collider(
+      this.player,
+      this.boxGroup,
+      function (playerCollide, boxCollide) {
+        playerCollide.x = 300
+        playerCollide.y = 50
+      }.bind(this)
+    )
   }
-  
+
+  /**
+   * Updates every milisecond
+   */
   update(time, delta) {
     // Arrow Keys
     const keyUpArrow = this.input.keyboard.addKey("UP")
@@ -56,11 +91,11 @@ class GameScene extends Phaser.Scene {
 
     if (keyDownArrow.isDown || keyS.isDown === true) {
       this.player.y += 10
-      if (this.player.y > 1920) {
-        this.player.y = 1920
+      if (this.player.y > 1080) {
+        this.player.y = 1080
       }
     }
-    
+
     if (keyLeftArrow.isDown || keyA.isDown === true) {
       this.player.x -= 10
       if (this.player.x < 0) {
