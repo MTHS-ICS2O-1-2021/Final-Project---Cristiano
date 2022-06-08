@@ -5,7 +5,19 @@
 // June 7 2022
 // Game Scene
 
+/**
+  * Phaser Scene
+  */
 class GameScene extends Phaser.Scene {
+  /**
+   * Adds a dangerous box
+   */
+  addBox(boxX, boxY) {
+    const box = this.physics.add.sprite(boxX, boxY, 'boxImage').setScale(2.0)
+    box
+    this.boxGroup.add(box)
+  }
+  
   /**
    * Constructs varibles
    */
@@ -13,7 +25,6 @@ class GameScene extends Phaser.Scene {
     super({ key: "gameScene" })
 
     this.player = null
-    this.box = null
   }
 
   /**
@@ -38,12 +49,13 @@ class GameScene extends Phaser.Scene {
    */
   create(data) {
     this.player = this.physics.add.sprite(1920 / 2, 1080 / 2, "playerImage")
-    this.box = this.physics.add.sprite(100, 100, "boxImage").setScale(2.0)
+    this.boxGroup = this.add.group()
+    this.addBox(100, 100)
 
     // Collisions
     this.physics.add.collider(
       this.player,
-      this.box,
+      this.boxGroup,
       function (playerCollide, boxCollide) {
         playerCollide.x = 1920 / 2
         playerCollide.y = 1080 / 2

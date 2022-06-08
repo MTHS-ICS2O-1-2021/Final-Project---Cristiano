@@ -5,6 +5,9 @@
 // June 7 2022
 // Menu Scene
 
+/**
+  * Phaser Scene
+  */
 class MenuScene extends Phaser.Scene {
   /**
    * Constructs varibles
@@ -54,7 +57,9 @@ class MenuScene extends Phaser.Scene {
    */
   update(time, delta) {}
 
-  // Takes player to the game scene
+  /**
+   * Takes player to game scene
+   */
   onClick() {
     this.scene.start("gameScene")
   }

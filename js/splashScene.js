@@ -5,6 +5,9 @@
 // June 7 2022
 // Splash Scene
 
+/**
+  * Phaser Scene
+  */
 class SplashScene extends Phaser.Scene {
   /**
    * Constructs varibles
