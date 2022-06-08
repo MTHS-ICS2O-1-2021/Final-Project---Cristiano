@@ -34,13 +34,4 @@ const config = {
 }
 
 const game = new Phaser.Game(config)
-
-game.scene.add("splashScene", splashScene)
-game.scene.add("menuScene", menuScene)
-game.scene.add("gameScene", gameScene)
-
-if (debugMode == true) {
-  game.scene.start("gameScene")
-} else {
-  game.scene.start("splashScene")
-}
+console.log(game)
