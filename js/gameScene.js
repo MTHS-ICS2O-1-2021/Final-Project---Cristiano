@@ -6,6 +6,7 @@
 // Game Scene
 
 class GameScene extends Phaser.Scene {
+  // Constructor for varibles
   constructor() {
     super({ key: "gameScene" })
 
@@ -13,10 +14,12 @@ class GameScene extends Phaser.Scene {
     this.box = null
   }
 
+  // Ran once initialized
   init(data) {
     this.cameras.main.setBackgroundColor("#000000")
   }
 
+  // Ran while preloading
   preload() {
     console.log("Game Scene")
 
@@ -24,6 +27,7 @@ class GameScene extends Phaser.Scene {
     this.load.image("boxImage", "assets/box.png")
   }
 
+  // Creating varibles
   create(data) {
     this.player = this.physics.add.sprite(1920 / 2, 1080 / 2, "playerImage")
     this.box = this.physics.add.sprite(100, 100, "boxImage").setScale(2.0)
@@ -39,6 +43,7 @@ class GameScene extends Phaser.Scene {
     )
   }
 
+  // Ran every milisecond or so
   update(time, delta) {
     // Arrow Keys
     const keyUpArrow = this.input.keyboard.addKey("UP")
