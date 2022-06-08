@@ -6,8 +6,8 @@
 // Splash Scene
 
 /**
-* Phaser Scene
-*/
+ * Phaser Scene
+ */
 class SplashScene extends Phaser.Scene {
   /**
    * Constructs varibles

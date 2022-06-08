@@ -6,8 +6,8 @@
 // Game Scene
 
 /**
-* Phaser Scene
-*/
+ * Phaser Scene
+ */
 class GameScene extends Phaser.Scene {
   /**
    * Adds a dangerous box
