@@ -91,8 +91,8 @@ class GameScene extends Phaser.Scene {
 
     if (keyDownArrow.isDown || keyS.isDown === true) {
       this.player.y += 10
-      if (this.player.y > 1920) {
-        this.player.y = 1920
+      if (this.player.y > 1080) {
+        this.player.y = 1080
       }
     }
 
