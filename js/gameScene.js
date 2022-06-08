@@ -38,7 +38,7 @@ class GameScene extends Phaser.Scene {
       }.bind(this)
     )
   }
-  
+
   update(time, delta) {
     // Arrow Keys
     const keyUpArrow = this.input.keyboard.addKey("UP")
@@ -64,7 +64,7 @@ class GameScene extends Phaser.Scene {
         this.player.y = 1920
       }
     }
-    
+
     if (keyLeftArrow.isDown || keyA.isDown === true) {
       this.player.x -= 10
       if (this.player.x < 0) {

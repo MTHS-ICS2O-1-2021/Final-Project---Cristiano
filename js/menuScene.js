@@ -13,7 +13,7 @@ class MenuScene extends Phaser.Scene {
     this.menuTextStyle = {
       font: "200px Arial",
       fill: "#000000",
-      align: "center"
+      align: "center",
     }
     this.startButton = null
   }
@@ -30,7 +30,7 @@ class MenuScene extends Phaser.Scene {
 
   create(data) {
     this.menuText = this.add
-      .text(1920 / 2, (1080 / 2) - 200, "Test", this.menuTextStyle)
+      .text(1920 / 2, 1080 / 2 - 200, "Test", this.menuTextStyle)
       .setOrigin(0.5)
     this.startButton = this.add.sprite(1920 / 2, 1080 / 2, "startButton")
     this.startButton.setInteractive({ useHandCursor: true })
