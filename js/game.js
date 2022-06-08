@@ -23,13 +23,13 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: debugMode
+      debug: debugMode,
     }
   },
   backgroundColor: 0xffffff,
   scale: {
     mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH
+    autoCenter: Phaser.Scale.CENTER_BOTH,
   }
 }
 
