@@ -17,7 +17,7 @@ class GameScene extends Phaser.Scene {
     box
     this.boxGroup.add(box)
   }
-  
+
   /**
    * Constructs varibles
    */
