@@ -3,82 +3,44 @@
 // Cristiano
 // Final-Project---Cristiano
 // June 7 2022
-// Game Scene
 
-class GameScene extends Phaser.Scene {
-  constructor() {
-    super({ key: "gameScene" })
+const debugMode = true
 
-    this.player = null
-    this.box = null
-  }
+import SplashScene from "./splashScene.js"
+import MenuScene from "./menuScene.js"
+import GameScene from "./gameScene.js"
 
-  init(data) {
-    this.cameras.main.setBackgroundColor("#000000")
-  }
+// Scenes
+const splashScene = new SplashScene()
+const menuScene = new MenuScene()
+const gameScene = new GameScene()
 
-  preload() {
-    console.log("Game Scene")
-
-    this.load.image("playerImage", "assets/playerImage.png")
-    this.load.image("boxImage", "assets/box.png")
-  }
-
-  create(data) {
-    this.player = this.physics.add.sprite(1920 / 2, 1080 / 2, "playerImage")
-    this.box = this.physics.add.sprite(100, 100, "boxImage").setScale(2.0)
-
-    // Collisions
-    this.physics.add.collider(
-      this.player, 
-      this.box, 
-      function (playerCollide, boxCollide) {
-      playerCollide.x = 1920 / 2
-      playerCollide.y = 1080 / 2
-      }.bind(this)
-    )
-  }
-
-  update(time, delta) {
-    // Arrow Keys
-    const keyUpArrow = this.input.keyboard.addKey("UP")
-    const keyDownArrow = this.input.keyboard.addKey("DOWN")
-    const keyLeftArrow = this.input.keyboard.addKey("LEFT")
-    const keyRightArrow = this.input.keyboard.addKey("RIGHT")
-    // WASD
-    const keyW = this.input.keyboard.addKey("W")
-    const keyS = this.input.keyboard.addKey("S")
-    const keyA = this.input.keyboard.addKey("A")
-    const keyD = this.input.keyboard.addKey("D")
-
-    if (keyUpArrow.isDown || keyW.isDown === true) {
-      this.player.y -= 10
-      if (this.player.y < 0) {
-        this.player.y = 0
-      }
+// Game Settings
+const config = {
+  type: Phaser.AUTO,
+  width: 1920,
+  height: 1080,
+  physics: {
+    default: "arcade",
+    arcade: {
+      debug: debugMode
     }
-
-    if (keyDownArrow.isDown || keyS.isDown === true) {
-      this.player.y += 10
-      if (this.player.y > 1920) {
-        this.player.y = 1920
-      }
-    }
-
-    if (keyLeftArrow.isDown || keyA.isDown === true) {
-      this.player.x -= 10
-      if (this.player.x < 0) {
-        this.player.x = 0
-      }
-    }
-
-    if (keyRightArrow.isDown || keyD.isDown === true) {
-      this.player.x += 10
-      if (this.player.x > 1920) {
-        this.player.x = 1920
-      }
-    }
+  },
+  backgroundColor: 0xffffff,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
   }
 }
 
-export default GameScene
+const game = new Phaser.Game(config)
+
+game.scene.add("splashScene", splashScene)
+game.scene.add("menuScene", menuScene)
+game.scene.add("gameScene", gameScene)
+
+if (debugMode == true) {
+  game.scene.start("gameScene")
+} else {
+  game.scene.start("splashScene")
+}
