@@ -20,9 +20,9 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
-   * Adds dangerous boxes in a line on the x axis
+   * Adds dangerous boxes in a line on the y axis
    */
-  addBoxLoopX(boxX, numberOfBoxes, skippedBoxes) {
+  addBoxLoopY(boxX, numberOfBoxes, skippedBoxes) {
     var yLimit = 100 + numberOfBoxes * 200
 
     for (let count = 100; count != yLimit; count = count + 200) {
@@ -35,9 +35,9 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
-   * Adds dangerous boxes in a line on the y axis
+   * Adds dangerous boxes in a line on the x axis
    */
-  addBoxLoopY(boxY, numberOfBoxes, skippedBoxes) {
+  addBoxLoopX(boxY, numberOfBoxes, skippedBoxes) {
     var xLimit = 100 + numberOfBoxes * 200
 
     for (let count = 100; count != xLimit; count = count + 200) {
@@ -58,6 +58,7 @@ class GameScene extends Phaser.Scene {
     this.player = null
     this.timesLost = null
     this.bottomGui = null
+    this.sideGui = null
     this.loseText = null
     this.loseTextStyle = {
       font: "50px Arial",
@@ -82,6 +83,7 @@ class GameScene extends Phaser.Scene {
     this.load.image("playerImage", "assets/playerImage.png")
     this.load.image("boxImage", "assets/box.png")
     this.load.image("bottomGui", "assets/bottomGUI.png")
+    this.load.image("sideGui", "assets/sideGUI.png")
   }
 
   /**
@@ -91,15 +93,23 @@ class GameScene extends Phaser.Scene {
     // Set times lost
     this.timesLost = 0
     // Add Player
-    this.player = this.physics.add.sprite(300, 100, "playerImage")
+    this.player = this.physics.add.sprite(100, 100, "playerImage")
     // Generate level one
     this.boxGroup = this.add.group()
-    this.addBoxLoopX(100, 4)
-    this.addBoxLoopX(500, 3)
-    this.addBoxLoopY(900, 4, 2)
+    this.addBoxLoopY(300, 4)
+    this.addBoxLoopX(700, 5, 2)
+    this.addBoxLoopY(1100, 4)
+    this.addBoxLoopY(1500, 5, 1)
+    this.addBoxLoopY(1700, 5)
     // Add Gui
     this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
-    this.loseText = this.add.text(20, 1015, "Times lost: " + this.timesLost, this.loseTextStyle)
+    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
+    this.loseText = this.add.text(
+      20,
+      1015,
+      "Times lost: " + this.timesLost,
+      this.loseTextStyle
+    )
     // Set collision function
     this.physics.add.collider(
       this.player,
@@ -107,8 +117,8 @@ class GameScene extends Phaser.Scene {
       function (playerCollide, boxCollide) {
         this.timesLost++
         this.loseText.text = "Times lost: " + this.timesLost
-        playerCollide.x = 300
-        playerCollide.y = 50
+        playerCollide.x = 100
+        playerCollide.y = 100
       }.bind(this)
     )
   }
