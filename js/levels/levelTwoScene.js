@@ -3,12 +3,12 @@
 // Cristiano
 // Final-Project---Cristiano
 // June 7 2022
-// Game Scene
+// LevelTwo Scene
 
 /**
  * Phaser Scene
  */
-class GameScene extends Phaser.Scene {
+class LevelTwoScene extends Phaser.Scene {
   /**
    * Adds a dangerous box
    */
@@ -62,7 +62,7 @@ class GameScene extends Phaser.Scene {
    * Constructs varibles
    */
   constructor() {
-    super({ key: "gameScene" })
+    super({ key: "levelTwoScene" })
 
     // Player Element
     this.player = null
@@ -98,7 +98,7 @@ class GameScene extends Phaser.Scene {
    * Preloads files
    */
   preload() {
-    console.log("Game Scene")
+    console.log("Level One Scene")
 
     this.load.image("playerImage", "assets/playerImage.png")
     this.load.image("boxImage", "assets/box.png")
@@ -119,11 +119,8 @@ class GameScene extends Phaser.Scene {
     this.boxGroup = this.add.group()
     this.addBoxLoopY(300, 4)
     this.addBoxLoopX(700, 5, 2)
-    this.addBoxLoopY(1100, 4)
-    this.addBoxLoopY(1500, 5, 1)
-    this.addBoxLoopY(1700, 5, 1)
     this.goalGroup = this.add.group()
-    this.addGoal(1700, 100)
+    this.addGoal(1100, 100)
     // Add Gui
     this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
     this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
@@ -155,7 +152,7 @@ class GameScene extends Phaser.Scene {
       this.player,
       this.goalGroup,
       function (playerCollide, goalCollide) {
-        this.scene.switch("menuScene")
+        //this.scene.switch("levelThreeScene")
       }.bind(this)
     )
   }
@@ -204,4 +201,4 @@ class GameScene extends Phaser.Scene {
   }
 }
 
-export default GameScene
+export default LevelTwoScene
