@@ -20,7 +20,7 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
-   * Adds dangerous boxes in a line on the y axis
+   * Adds dangerous boxes in a line along the y axis
    */
   addBoxLoopY(boxX, numberOfBoxes, skippedBoxes) {
     var yLimit = 100 + numberOfBoxes * 200
@@ -35,7 +35,7 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
-   * Adds dangerous boxes in a line on the x axis
+   * Adds dangerous boxes in a line along the x axis
    */
   addBoxLoopX(boxY, numberOfBoxes, skippedBoxes) {
     var xLimit = 100 + numberOfBoxes * 200
@@ -50,18 +50,38 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
+   * Adds the goal post
+   */
+  addGoal(goalX, goalY) {
+    const goal = this.physics.add.sprite(goalX, goalY, "goalImage")
+
+    this.goalGroup.add(goal)
+  }
+
+  /**
    * Constructs varibles
    */
   constructor() {
     super({ key: "gameScene" })
 
+    // Player Element
     this.player = null
+
+    // Gui Elements
     this.timesLost = null
     this.bottomGui = null
     this.sideGui = null
+
+    // Text Elements
     this.loseText = null
     this.loseTextStyle = {
       font: "50px Arial",
+      fill: "#ffffff",
+      align: "center",
+    }
+    this.tutorialText = null
+    this.tutorialTextStyle = {
+      font: "45px Arial",
       fill: "#ffffff",
       align: "center",
     }
@@ -82,6 +102,7 @@ class GameScene extends Phaser.Scene {
 
     this.load.image("playerImage", "assets/playerImage.png")
     this.load.image("boxImage", "assets/box.png")
+    this.load.image("goalImage", "assets/goal.png")
     this.load.image("bottomGui", "assets/bottomGUI.png")
     this.load.image("sideGui", "assets/sideGUI.png")
   }
@@ -100,17 +121,26 @@ class GameScene extends Phaser.Scene {
     this.addBoxLoopX(700, 5, 2)
     this.addBoxLoopY(1100, 4)
     this.addBoxLoopY(1500, 5, 1)
-    this.addBoxLoopY(1700, 5)
+    this.addBoxLoopY(1700, 5, 1)
+    this.goalGroup = this.add.group()
+    this.addGoal(1700, 100)
     // Add Gui
     this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
     this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
+    // Add Text
     this.loseText = this.add.text(
       20,
       1015,
       "Times lost: " + this.timesLost,
       this.loseTextStyle
     )
-    // Set collision function
+    this.tutorialText = this.add.text(
+      405,
+      100,
+      "Use the arrow keys or\nthe WASD keys to move.\n\nHitting the walls inside the \nscreen will cause you to lose.\n\nHit the goal post \nat the end to win.",
+      this.tutorialTextStyle
+    )
+    // Set collision functions
     this.physics.add.collider(
       this.player,
       this.boxGroup,
@@ -119,6 +149,13 @@ class GameScene extends Phaser.Scene {
         this.loseText.text = "Times lost: " + this.timesLost
         playerCollide.x = 100
         playerCollide.y = 100
+      }.bind(this)
+    )
+    this.physics.add.collider(
+      this.player,
+      this.goalGroup,
+      function (playerCollide, goalCollide) {
+        this.scene.switch("menuScene")
       }.bind(this)
     )
   }
@@ -160,8 +197,8 @@ class GameScene extends Phaser.Scene {
 
     if (keyRightArrow.isDown || keyD.isDown === true) {
       this.player.x += 10
-      if (this.player.x > 1870) {
-        this.player.x = 1870
+      if (this.player.x > 1750) {
+        this.player.x = 1750
       }
     }
   }
