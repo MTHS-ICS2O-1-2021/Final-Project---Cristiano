@@ -128,6 +128,18 @@ class LevelThreeScene extends Phaser.Scene {
       fill: "#ffffff",
       align: "center",
     }
+    this.greenKeyCountText = null
+    this.greenKeyCountTextStyle = {
+      font: "100px Arial",
+      fill: "#6aa84fff",
+      align: "center",
+    }
+    this.redKeyCountText = null
+    this.redKeyCountTextStyle = {
+      font: "100px Arial",
+      fill: "#cc0000ff",
+      align: "center",
+    }
   }
 
   /**
@@ -194,6 +206,18 @@ class LevelThreeScene extends Phaser.Scene {
       "Keys can only open the key\ndoor matching their colour.",
       this.tutorialTextStyle
     )
+    this.greenKeyCountText = this.add.text(
+      1832,
+      0,
+      greenKeysHeld,
+      this.greenKeyCountTextStyle
+    )
+    this.redKeyCountText = this.add.text(
+      1832,
+      100,
+      redKeysHeld,
+      this.redKeyCountTextStyle
+    )
     // Box collision functions
     this.physics.add.collider(
       this.player,
@@ -213,7 +237,7 @@ class LevelThreeScene extends Phaser.Scene {
         if (greenKeysHeld > 0) {
           boxCollide.destroy()
           greenKeysHeld = greenKeysHeld - 1
-          console.log("Player is now holding " + greenKeysHeld + " green keys.")
+          this.greenKeyCountText.text = greenKeysHeld
         } else {
           this.timesLost++
           this.loseText.text = "Times lost: " + this.timesLost
@@ -228,7 +252,7 @@ class LevelThreeScene extends Phaser.Scene {
       function (playerCollide, keyCollide) {
         keyCollide.destroy()
         greenKeysHeld++
-        console.log("Player is now holding " + greenKeysHeld + " green keys.")
+        this.greenKeyCountText.text = greenKeysHeld
       }.bind(this)
     )
     // Red key collision functions
@@ -239,7 +263,7 @@ class LevelThreeScene extends Phaser.Scene {
         if (redKeysHeld > 0) {
           boxCollide.destroy()
           redKeysHeld = redKeysHeld - 1
-          console.log("Player is now holding " + redKeysHeld + " red keys.")
+          this.redKeyCountText.text = redKeysHeld
         } else {
           this.timesLost++
           this.loseText.text = "Times lost: " + this.timesLost
@@ -254,7 +278,7 @@ class LevelThreeScene extends Phaser.Scene {
       function (playerCollide, keyCollide) {
         keyCollide.destroy()
         redKeysHeld++
-        console.log("Player is now holding " + redKeysHeld + " red keys.")
+        this.redKeyCountText.text = redKeysHeld
       }.bind(this)
     )
     // Goal collision function
