@@ -155,6 +155,7 @@ class LevelOneScene extends Phaser.Scene {
       this.player,
       this.goalGroup,
       function (playerCollide, goalCollide) {
+        console.log("Finished Level One")
         this.scene.switch("levelTwoScene")
       }.bind(this)
     )

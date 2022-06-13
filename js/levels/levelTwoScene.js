@@ -5,6 +5,8 @@
 // June 7 2022
 // LevelTwo Scene
 
+var hasKey = false
+
 /**
  * Phaser Scene
  */
@@ -47,6 +49,24 @@ class LevelTwoScene extends Phaser.Scene {
         this.addBox(count, boxY)
       }
     }
+  }
+
+  /**
+   * Adds the key door
+   */
+  addKeyDoor(keyDoorX, keyDoorY) {
+    const keyDoor = this.physics.add.sprite(keyDoorX, keyDoorY, "keyDoorImage").setScale(2.0)
+
+    this.keyDoorGroup.add(keyDoor)
+  }
+
+  /**
+   * Adds the key that opens the key door
+   */
+  addKey(keyX, keyY) {
+    const key = this.physics.add.sprite(keyX, keyY, "keyImage")
+
+    this.keyGroup.add(key)
   }
 
   /**
@@ -98,11 +118,13 @@ class LevelTwoScene extends Phaser.Scene {
    * Preloads files
    */
   preload() {
-    console.log("Level One Scene")
+    console.log("Level Two Scene")
 
     this.load.image("playerImage", "assets/playerImage.png")
     this.load.image("boxImage", "assets/box.png")
     this.load.image("goalImage", "assets/goal.png")
+    this.load.image("keyImage", "assets/key.png")
+    this.load.image("keyDoorImage", "assets/keyDoor.png")
     this.load.image("bottomGui", "assets/bottomGUI.png")
     this.load.image("sideGui", "assets/sideGUI.png")
   }
@@ -117,10 +139,16 @@ class LevelTwoScene extends Phaser.Scene {
     this.player = this.physics.add.sprite(100, 100, "playerImage")
     // Generate level one
     this.boxGroup = this.add.group()
-    this.addBoxLoopY(300, 4)
-    this.addBoxLoopX(700, 5, 2)
+    this.addBoxLoopY(300, 3)
+    this.addBoxLoopX(700, 6, 1)
+    this.addBoxLoopY(1100, 3)
+    this.addBoxLoopY(1500, 4)
     this.goalGroup = this.add.group()
-    this.addGoal(1100, 100)
+    this.addGoal(1300, 100)
+    this.keyGroup = this.add.group()
+    this.addKey(1700, 100)
+    this.keyDoorGroup = this.add.group()
+    this.addKeyDoor(1300, 700)
     // Add Gui
     this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
     this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
@@ -132,15 +160,15 @@ class LevelTwoScene extends Phaser.Scene {
       this.loseTextStyle
     )
     this.tutorialText = this.add.text(
-      405,
-      100,
-      "Use the arrow keys or\nthe WASD keys to move.\n\nHitting the walls inside the \nscreen will cause you to lose.\n\nHit the goal post \nat the end to win.",
+      460,
+      250,
+      "Grab the key and touch \nthe key door to open it.",
       this.tutorialTextStyle
     )
     // Set collision functions
     this.physics.add.collider(
       this.player,
-      this.boxGroup,
+      this.boxGroup || this.keyDoorGroup,
       function (playerCollide, boxCollide) {
         this.timesLost++
         this.loseText.text = "Times lost: " + this.timesLost
@@ -150,8 +178,31 @@ class LevelTwoScene extends Phaser.Scene {
     )
     this.physics.add.collider(
       this.player,
+      this.keyDoorGroup,
+      function (playerCollide, boxCollide) {
+        if (hasKey === true) {
+          boxCollide.destroy()
+        } else {
+          this.timesLost++
+          this.loseText.text = "Times lost: " + this.timesLost
+          playerCollide.x = 100
+          playerCollide.y = 100
+        }
+      }.bind(this)
+    )
+    this.physics.add.collider(
+      this.player,
+      this.keyGroup,
+      function (playerCollide, keyCollide) {
+        keyCollide.destroy()
+        hasKey = true
+      }.bind(this)
+    )
+    this.physics.add.collider(
+      this.player,
       this.goalGroup,
       function (playerCollide, goalCollide) {
+        console.log("Finished Level Two")
         //this.scene.switch("levelThreeScene")
       }.bind(this)
     )

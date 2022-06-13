@@ -4,7 +4,7 @@
 // Final-Project---Cristiano
 // June 7 2022
 
-const debugMode = true
+const debugMode = false
 
 import SplashScene from "./splashScene.js"
 import MenuScene from "./menuScene.js"
