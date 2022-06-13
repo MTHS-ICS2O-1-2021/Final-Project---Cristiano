@@ -3,12 +3,15 @@
 // Cristiano
 // Final-Project---Cristiano
 // June 7 2022
-// LevelOne Scene
+// LevelThree Scene
+
+var greenKeysHeld = 0
+var redKeysHeld = 0
 
 /**
  * Phaser Scene
  */
-class LevelOneScene extends Phaser.Scene {
+class LevelThreeScene extends Phaser.Scene {
   /**
    * Adds a dangerous box
    */
@@ -50,6 +53,46 @@ class LevelOneScene extends Phaser.Scene {
   }
 
   /**
+   * Adds a green key door
+   */
+  addGreenKeyDoor(keyDoorX, keyDoorY) {
+    const keyDoor = this.physics.add
+      .sprite(keyDoorX, keyDoorY, "keyDoorImage")
+      .setScale(2.0)
+
+    this.greenKeyDoorGroup.add(keyDoor)
+  }
+
+  /**
+   * Adds a red key door
+   */
+  addRedKeyDoor(keyDoorX, keyDoorY) {
+    const keyDoor = this.physics.add
+      .sprite(keyDoorX, keyDoorY, "redKeyDoorImage")
+      .setScale(2.0)
+
+    this.redKeyDoorGroup.add(keyDoor)
+  }
+
+  /**
+   * Adds a green key that opens a green key door
+   */
+  addGreenKey(keyX, keyY) {
+    const key = this.physics.add.sprite(keyX, keyY, "keyImage")
+
+    this.greenKeyGroup.add(key)
+  }
+
+  /**
+   * Adds a red key that opens a red key door
+   */
+  addRedKey(keyX, keyY) {
+    const key = this.physics.add.sprite(keyX, keyY, "redKeyImage")
+
+    this.redKeyGroup.add(key)
+  }
+
+  /**
    * Adds the goal post
    */
   addGoal(goalX, goalY) {
@@ -62,7 +105,7 @@ class LevelOneScene extends Phaser.Scene {
    * Constructs varibles
    */
   constructor() {
-    super({ key: "levelOneScene" })
+    super({ key: "levelThreeScene" })
 
     // Player Element
     this.player = null
@@ -85,6 +128,18 @@ class LevelOneScene extends Phaser.Scene {
       fill: "#ffffff",
       align: "center",
     }
+    this.greenKeyCountText = null
+    this.greenKeyCountTextStyle = {
+      font: "100px Arial",
+      fill: "#6aa84fff",
+      align: "center",
+    }
+    this.redKeyCountText = null
+    this.redKeyCountTextStyle = {
+      font: "100px Arial",
+      fill: "#cc0000ff",
+      align: "center",
+    }
   }
 
   /**
@@ -98,11 +153,15 @@ class LevelOneScene extends Phaser.Scene {
    * Preloads files
    */
   preload() {
-    console.log("Level One Scene")
+    console.log("Level Three Scene")
 
     this.load.image("playerImage", "assets/playerImage.png")
     this.load.image("boxImage", "assets/box.png")
     this.load.image("goalImage", "assets/goal.png")
+    this.load.image("keyImage", "assets/key.png")
+    this.load.image("keyDoorImage", "assets/keyDoor.png")
+    this.load.image("redKeyImage", "assets/redKey.png")
+    this.load.image("redKeyDoorImage", "assets/redKeyDoor.png")
     this.load.image("bottomGui", "assets/bottomGUI.png")
     this.load.image("sideGui", "assets/sideGUI.png")
   }
@@ -117,13 +176,20 @@ class LevelOneScene extends Phaser.Scene {
     this.player = this.physics.add.sprite(100, 100, "playerImage")
     // Generate level one
     this.boxGroup = this.add.group()
-    this.addBoxLoopY(300, 4)
-    this.addBoxLoopX(700, 5, 2)
-    this.addBoxLoopY(1100, 4)
-    this.addBoxLoopY(1500, 5, 1)
-    this.addBoxLoopY(1700, 5, 1)
+    this.addBoxLoopY(300, 3)
+    this.addBoxLoopX(700, 6, 1)
+    this.addBoxLoopY(1100, 3)
+    this.addBoxLoopY(1500, 4)
     this.goalGroup = this.add.group()
-    this.addGoal(1700, 100)
+    this.addGoal(1300, 100)
+    this.greenKeyGroup = this.add.group()
+    this.addGreenKey(1700, 100)
+    this.greenKeyDoorGroup = this.add.group()
+    this.addGreenKeyDoor(1300, 500)
+    this.redKeyGroup = this.add.group()
+    this.addRedKey(1300, 700)
+    this.redKeyDoorGroup = this.add.group()
+    this.addRedKeyDoor(1700, 500)
     // Add Gui
     this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
     this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
@@ -135,12 +201,24 @@ class LevelOneScene extends Phaser.Scene {
       this.loseTextStyle
     )
     this.tutorialText = this.add.text(
-      405,
-      100,
-      "Use the arrow keys or\nthe WASD keys to move.\n\nHitting the walls inside the \nscreen will cause you to lose.\n\nHit the goal post \nat the end to win.",
+      420,
+      250,
+      "Keys can only open the key\ndoor matching their colour.",
       this.tutorialTextStyle
     )
-    // Set collision functions
+    this.greenKeyCountText = this.add.text(
+      1832,
+      0,
+      greenKeysHeld,
+      this.greenKeyCountTextStyle
+    )
+    this.redKeyCountText = this.add.text(
+      1832,
+      100,
+      redKeysHeld,
+      this.redKeyCountTextStyle
+    )
+    // Box collision functions
     this.physics.add.collider(
       this.player,
       this.boxGroup,
@@ -151,12 +229,65 @@ class LevelOneScene extends Phaser.Scene {
         playerCollide.y = 100
       }.bind(this)
     )
+    // Green key collision functions
+    this.physics.add.collider(
+      this.player,
+      this.greenKeyDoorGroup,
+      function (playerCollide, boxCollide) {
+        if (greenKeysHeld > 0) {
+          boxCollide.destroy()
+          greenKeysHeld = greenKeysHeld - 1
+          this.greenKeyCountText.text = greenKeysHeld
+        } else {
+          this.timesLost++
+          this.loseText.text = "Times lost: " + this.timesLost
+          playerCollide.x = 100
+          playerCollide.y = 100
+        }
+      }.bind(this)
+    )
+    this.physics.add.collider(
+      this.player,
+      this.greenKeyGroup,
+      function (playerCollide, keyCollide) {
+        keyCollide.destroy()
+        greenKeysHeld++
+        this.greenKeyCountText.text = greenKeysHeld
+      }.bind(this)
+    )
+    // Red key collision functions
+    this.physics.add.collider(
+      this.player,
+      this.redKeyDoorGroup,
+      function (playerCollide, boxCollide) {
+        if (redKeysHeld > 0) {
+          boxCollide.destroy()
+          redKeysHeld = redKeysHeld - 1
+          this.redKeyCountText.text = redKeysHeld
+        } else {
+          this.timesLost++
+          this.loseText.text = "Times lost: " + this.timesLost
+          playerCollide.x = 100
+          playerCollide.y = 100
+        }
+      }.bind(this)
+    )
+    this.physics.add.collider(
+      this.player,
+      this.redKeyGroup,
+      function (playerCollide, keyCollide) {
+        keyCollide.destroy()
+        redKeysHeld++
+        this.redKeyCountText.text = redKeysHeld
+      }.bind(this)
+    )
+    // Goal collision function
     this.physics.add.collider(
       this.player,
       this.goalGroup,
       function (playerCollide, goalCollide) {
-        console.log("Finished Level One")
-        this.scene.switch("levelTwoScene")
+        console.log("Finished Level Three")
+        //this.scene.switch("levelFourScene")
       }.bind(this)
     )
   }
@@ -205,4 +336,4 @@ class LevelOneScene extends Phaser.Scene {
   }
 }
 
-export default LevelOneScene
+export default LevelThreeScene

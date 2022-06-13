@@ -10,12 +10,14 @@ import SplashScene from "./splashScene.js"
 import MenuScene from "./menuScene.js"
 import LevelOneScene from "./levels/levelOneScene.js"
 import LevelTwoScene from "./levels/levelTwoScene.js"
+import LevelThreeScene from "./levels/levelThreeScene.js"
 
 // Scenes
 const splashScene = new SplashScene()
 const menuScene = new MenuScene()
 const levelOneScene = new LevelOneScene()
 const levelTwoScene = new LevelTwoScene()
+const levelThreeScene = new LevelThreeScene()
 
 // Game Settings
 const config = {
@@ -42,9 +44,10 @@ game.scene.add("splashScene", splashScene)
 game.scene.add("menuScene", menuScene)
 game.scene.add("levelOneScene", levelOneScene)
 game.scene.add("levelTwoScene", levelTwoScene)
+game.scene.add("levelThreeScene", levelThreeScene)
 
 if (debugMode == true) {
-  game.scene.start("levelTwoScene")
+  game.scene.start("levelThreeScene")
 } else {
   game.scene.start("splashScene")
 }
