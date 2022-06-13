@@ -56,9 +56,22 @@ class LevelThreeScene extends Phaser.Scene {
    * Adds a green key door
    */
   addGreenKeyDoor(keyDoorX, keyDoorY) {
-    const keyDoor = this.physics.add.sprite(keyDoorX, keyDoorY, "keyDoorImage").setScale(2.0)
+    const keyDoor = this.physics.add
+      .sprite(keyDoorX, keyDoorY, "keyDoorImage")
+      .setScale(2.0)
 
     this.greenKeyDoorGroup.add(keyDoor)
+  }
+
+  /**
+   * Adds a red key door
+   */
+  addRedKeyDoor(keyDoorX, keyDoorY) {
+    const keyDoor = this.physics.add
+      .sprite(keyDoorX, keyDoorY, "redKeyDoorImage")
+      .setScale(2.0)
+
+    this.redKeyDoorGroup.add(keyDoor)
   }
 
   /**
@@ -68,15 +81,6 @@ class LevelThreeScene extends Phaser.Scene {
     const key = this.physics.add.sprite(keyX, keyY, "keyImage")
 
     this.greenKeyGroup.add(key)
-  }
-
-  /**
-   * Adds a red key door
-   */
-  addRedKeyDoor(keyDoorX, keyDoorY) {
-    const keyDoor = this.physics.add.sprite(keyDoorX, keyDoorY, "redKeyDoorImage").setScale(2.0)
-
-    this.redKeyDoorGroup.add(keyDoor)
   }
 
   /**

@@ -55,7 +55,9 @@ class LevelTwoScene extends Phaser.Scene {
    * Adds the key door
    */
   addKeyDoor(keyDoorX, keyDoorY) {
-    const keyDoor = this.physics.add.sprite(keyDoorX, keyDoorY, "keyDoorImage").setScale(2.0)
+    const keyDoor = this.physics.add
+      .sprite(keyDoorX, keyDoorY, "keyDoorImage")
+      .setScale(2.0)
 
     this.keyDoorGroup.add(keyDoor)
   }
