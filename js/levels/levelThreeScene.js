@@ -3,14 +3,15 @@
 // Cristiano
 // Final-Project---Cristiano
 // June 7 2022
-// LevelTwo Scene
+// LevelThree Scene
 
-var hasKey = false
+var greenKeysHeld = 0
+var redKeysHeld = 0
 
 /**
  * Phaser Scene
  */
-class LevelTwoScene extends Phaser.Scene {
+class LevelThreeScene extends Phaser.Scene {
   /**
    * Adds a dangerous box
    */
@@ -52,21 +53,39 @@ class LevelTwoScene extends Phaser.Scene {
   }
 
   /**
-   * Adds the key door
+   * Adds a green key door
    */
-  addKeyDoor(keyDoorX, keyDoorY) {
+  addGreenKeyDoor(keyDoorX, keyDoorY) {
     const keyDoor = this.physics.add.sprite(keyDoorX, keyDoorY, "keyDoorImage").setScale(2.0)
 
-    this.keyDoorGroup.add(keyDoor)
+    this.greenKeyDoorGroup.add(keyDoor)
   }
 
   /**
-   * Adds the key that opens the key door
+   * Adds a green key that opens a green key door
    */
-  addKey(keyX, keyY) {
+  addGreenKey(keyX, keyY) {
     const key = this.physics.add.sprite(keyX, keyY, "keyImage")
 
-    this.keyGroup.add(key)
+    this.greenKeyGroup.add(key)
+  }
+
+  /**
+   * Adds a red key door
+   */
+  addRedKeyDoor(keyDoorX, keyDoorY) {
+    const keyDoor = this.physics.add.sprite(keyDoorX, keyDoorY, "redKeyDoorImage").setScale(2.0)
+
+    this.redKeyDoorGroup.add(keyDoor)
+  }
+
+  /**
+   * Adds a red key that opens a red key door
+   */
+  addRedKey(keyX, keyY) {
+    const key = this.physics.add.sprite(keyX, keyY, "redKeyImage")
+
+    this.redKeyGroup.add(key)
   }
 
   /**
@@ -82,7 +101,7 @@ class LevelTwoScene extends Phaser.Scene {
    * Constructs varibles
    */
   constructor() {
-    super({ key: "levelTwoScene" })
+    super({ key: "levelThreeScene" })
 
     // Player Element
     this.player = null
@@ -118,13 +137,15 @@ class LevelTwoScene extends Phaser.Scene {
    * Preloads files
    */
   preload() {
-    console.log("Level Two Scene")
+    console.log("Level Three Scene")
 
     this.load.image("playerImage", "assets/playerImage.png")
     this.load.image("boxImage", "assets/box.png")
     this.load.image("goalImage", "assets/goal.png")
     this.load.image("keyImage", "assets/key.png")
     this.load.image("keyDoorImage", "assets/keyDoor.png")
+    this.load.image("redKeyImage", "assets/redKey.png")
+    this.load.image("redKeyDoorImage", "assets/redKeyDoor.png")
     this.load.image("bottomGui", "assets/bottomGUI.png")
     this.load.image("sideGui", "assets/sideGUI.png")
   }
@@ -145,10 +166,14 @@ class LevelTwoScene extends Phaser.Scene {
     this.addBoxLoopY(1500, 4)
     this.goalGroup = this.add.group()
     this.addGoal(1300, 100)
-    this.keyGroup = this.add.group()
-    this.addKey(1700, 100)
-    this.keyDoorGroup = this.add.group()
-    this.addKeyDoor(1300, 700)
+    this.greenKeyGroup = this.add.group()
+    this.addGreenKey(1700, 100)
+    this.greenKeyDoorGroup = this.add.group()
+    this.addGreenKeyDoor(1300, 500)
+    this.redKeyGroup = this.add.group()
+    this.addRedKey(1300, 700)
+    this.redKeyDoorGroup = this.add.group()
+    this.addRedKeyDoor(1700, 500)
     // Add Gui
     this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
     this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
@@ -160,12 +185,12 @@ class LevelTwoScene extends Phaser.Scene {
       this.loseTextStyle
     )
     this.tutorialText = this.add.text(
-      460,
+      420,
       250,
-      "Grab the key and touch \nthe key door to open it.",
+      "Keys can only open the key\ndoor matching their colour.",
       this.tutorialTextStyle
     )
-    // Set collision functions
+    // Box collision functions
     this.physics.add.collider(
       this.player,
       this.boxGroup,
@@ -176,12 +201,15 @@ class LevelTwoScene extends Phaser.Scene {
         playerCollide.y = 100
       }.bind(this)
     )
+    // Green key collision functions
     this.physics.add.collider(
       this.player,
-      this.keyDoorGroup,
+      this.greenKeyDoorGroup,
       function (playerCollide, boxCollide) {
-        if (hasKey === true) {
+        if (greenKeysHeld > 0) {
           boxCollide.destroy()
+          greenKeysHeld = greenKeysHeld - 1
+          console.log("Player is now holding " + greenKeysHeld + " green keys.")
         } else {
           this.timesLost++
           this.loseText.text = "Times lost: " + this.timesLost
@@ -192,18 +220,46 @@ class LevelTwoScene extends Phaser.Scene {
     )
     this.physics.add.collider(
       this.player,
-      this.keyGroup,
+      this.greenKeyGroup,
       function (playerCollide, keyCollide) {
         keyCollide.destroy()
-        hasKey = true
+        greenKeysHeld++
+        console.log("Player is now holding " + greenKeysHeld + " green keys.")
+      }.bind(this)
+    )
+    // Red key collision functions
+    this.physics.add.collider(
+      this.player,
+      this.redKeyDoorGroup,
+      function (playerCollide, boxCollide) {
+        if (redKeysHeld > 0) {
+          boxCollide.destroy()
+          redKeysHeld = redKeysHeld - 1
+          console.log("Player is now holding " + redKeysHeld + " red keys.")
+        } else {
+          this.timesLost++
+          this.loseText.text = "Times lost: " + this.timesLost
+          playerCollide.x = 100
+          playerCollide.y = 100
+        }
       }.bind(this)
     )
     this.physics.add.collider(
       this.player,
+      this.redKeyGroup,
+      function (playerCollide, keyCollide) {
+        keyCollide.destroy()
+        redKeysHeld++
+        console.log("Player is now holding " + redKeysHeld + " red keys.")
+      }.bind(this)
+    )
+    // Goal collision function
+    this.physics.add.collider(
+      this.player,
       this.goalGroup,
       function (playerCollide, goalCollide) {
-        console.log("Finished Level Two")
-        this.scene.switch("levelThreeScene")
+        console.log("Finished Level Three")
+        //this.scene.switch("levelFourScene")
       }.bind(this)
     )
   }
@@ -252,4 +308,4 @@ class LevelTwoScene extends Phaser.Scene {
   }
 }
 
-export default LevelTwoScene
+export default LevelThreeScene
