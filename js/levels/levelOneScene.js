@@ -13,8 +13,9 @@ class LevelOneScene extends Phaser.Scene {
    * Adds a dangerous box
    */
   addBox(boxX, boxY) {
+    boxX = 100 + boxX * 200
+    boxY = 100 + boxY * 200
     const box = this.physics.add.sprite(boxX, boxY, "boxImage").setScale(2.0)
-    box
 
     this.boxGroup.add(box)
   }
@@ -23,9 +24,7 @@ class LevelOneScene extends Phaser.Scene {
    * Adds dangerous boxes in a line along the y axis
    */
   addBoxLoopY(boxX, numberOfBoxes, skippedBoxes) {
-    var yLimit = 100 + numberOfBoxes * 200
-
-    for (let count = 100; count != yLimit; count = count + 200) {
+    for (let count = 0; count != numberOfBoxes; count++) {
       if (skippedBoxes > 0) {
         skippedBoxes = skippedBoxes - 1
       } else {
@@ -38,9 +37,7 @@ class LevelOneScene extends Phaser.Scene {
    * Adds dangerous boxes in a line along the x axis
    */
   addBoxLoopX(boxY, numberOfBoxes, skippedBoxes) {
-    var xLimit = 100 + numberOfBoxes * 200
-
-    for (let count = 100; count != xLimit; count = count + 200) {
+    for (let count = 0; count != numberOfBoxes; count++) {
       if (skippedBoxes > 0) {
         skippedBoxes = skippedBoxes - 1
       } else {
@@ -53,6 +50,8 @@ class LevelOneScene extends Phaser.Scene {
    * Adds the goal post
    */
   addGoal(goalX, goalY) {
+    goalX = 100 + goalX * 200
+    goalY = 100 + goalY * 200
     const goal = this.physics.add.sprite(goalX, goalY, "goalImage")
 
     this.goalGroup.add(goal)
@@ -117,13 +116,13 @@ class LevelOneScene extends Phaser.Scene {
     this.player = this.physics.add.sprite(100, 100, "playerImage")
     // Generate level one
     this.boxGroup = this.add.group()
-    this.addBoxLoopY(300, 4)
-    this.addBoxLoopX(700, 5, 2)
-    this.addBoxLoopY(1100, 4)
-    this.addBoxLoopY(1500, 5, 1)
-    this.addBoxLoopY(1700, 5, 1)
+    this.addBoxLoopY(1, 4)
+    this.addBoxLoopX(3, 5, 2)
+    this.addBoxLoopY(5, 4)
+    this.addBoxLoopY(7, 5, 1)
+    this.addBoxLoopY(8, 5, 1)
     this.goalGroup = this.add.group()
-    this.addGoal(1700, 100)
+    this.addGoal(8, 0)
     // Add Gui
     this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
     this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
