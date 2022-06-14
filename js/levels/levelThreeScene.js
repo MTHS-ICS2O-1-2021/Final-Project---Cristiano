@@ -16,6 +16,8 @@ class LevelThreeScene extends Phaser.Scene {
    * Adds a dangerous box
    */
   addBox(boxX, boxY) {
+    boxX = 100 + boxX * 200
+    boxY = 100 + boxY * 200
     const box = this.physics.add.sprite(boxX, boxY, "boxImage").setScale(2.0)
     box
 
@@ -26,9 +28,7 @@ class LevelThreeScene extends Phaser.Scene {
    * Adds dangerous boxes in a line along the y axis
    */
   addBoxLoopY(boxX, numberOfBoxes, skippedBoxes) {
-    var yLimit = 100 + numberOfBoxes * 200
-
-    for (let count = 100; count != yLimit; count = count + 200) {
+    for (let count = 0; count != numberOfBoxes; count++) {
       if (skippedBoxes > 0) {
         skippedBoxes = skippedBoxes - 1
       } else {
@@ -41,9 +41,7 @@ class LevelThreeScene extends Phaser.Scene {
    * Adds dangerous boxes in a line along the x axis
    */
   addBoxLoopX(boxY, numberOfBoxes, skippedBoxes) {
-    var xLimit = 100 + numberOfBoxes * 200
-
-    for (let count = 100; count != xLimit; count = count + 200) {
+    for (let count = 0; count != numberOfBoxes; count++) {
       if (skippedBoxes > 0) {
         skippedBoxes = skippedBoxes - 1
       } else {
@@ -56,6 +54,8 @@ class LevelThreeScene extends Phaser.Scene {
    * Adds a green key door
    */
   addGreenKeyDoor(keyDoorX, keyDoorY) {
+    keyDoorX = 100 + keyDoorX * 200
+    keyDoorY = 100 + keyDoorY * 200
     const keyDoor = this.physics.add
       .sprite(keyDoorX, keyDoorY, "keyDoorImage")
       .setScale(2.0)
@@ -67,6 +67,8 @@ class LevelThreeScene extends Phaser.Scene {
    * Adds a red key door
    */
   addRedKeyDoor(keyDoorX, keyDoorY) {
+    keyDoorX = 100 + keyDoorX * 200
+    keyDoorY = 100 + keyDoorY * 200
     const keyDoor = this.physics.add
       .sprite(keyDoorX, keyDoorY, "redKeyDoorImage")
       .setScale(2.0)
@@ -78,6 +80,8 @@ class LevelThreeScene extends Phaser.Scene {
    * Adds a green key that opens a green key door
    */
   addGreenKey(keyX, keyY) {
+    keyX = 100 + keyX * 200
+    keyY = 100 + keyY * 200
     const key = this.physics.add.sprite(keyX, keyY, "keyImage")
 
     this.greenKeyGroup.add(key)
@@ -87,6 +91,8 @@ class LevelThreeScene extends Phaser.Scene {
    * Adds a red key that opens a red key door
    */
   addRedKey(keyX, keyY) {
+    keyX = 100 + keyX * 200
+    keyY = 100 + keyY * 200
     const key = this.physics.add.sprite(keyX, keyY, "redKeyImage")
 
     this.redKeyGroup.add(key)
@@ -96,6 +102,8 @@ class LevelThreeScene extends Phaser.Scene {
    * Adds the goal post
    */
   addGoal(goalX, goalY) {
+    goalX = 100 + goalX * 200
+    goalY = 100 + goalY * 200
     const goal = this.physics.add.sprite(goalX, goalY, "goalImage")
 
     this.goalGroup.add(goal)
@@ -176,20 +184,20 @@ class LevelThreeScene extends Phaser.Scene {
     this.player = this.physics.add.sprite(100, 100, "playerImage")
     // Generate level one
     this.boxGroup = this.add.group()
-    this.addBoxLoopY(300, 3)
-    this.addBoxLoopX(700, 6, 1)
-    this.addBoxLoopY(1100, 3)
-    this.addBoxLoopY(1500, 4)
+    this.addBoxLoopY(1, 3)
+    this.addBoxLoopX(3, 6, 1)
+    this.addBoxLoopY(5, 3)
+    this.addBoxLoopY(7, 4)
     this.goalGroup = this.add.group()
-    this.addGoal(1300, 100)
+    this.addGoal(6, 0)
     this.greenKeyGroup = this.add.group()
-    this.addGreenKey(1700, 100)
+    this.addGreenKey(8, 0)
     this.greenKeyDoorGroup = this.add.group()
-    this.addGreenKeyDoor(1300, 500)
+    this.addGreenKeyDoor(6, 2)
     this.redKeyGroup = this.add.group()
-    this.addRedKey(1300, 700)
+    this.addRedKey(6, 3)
     this.redKeyDoorGroup = this.add.group()
-    this.addRedKeyDoor(1700, 500)
+    this.addRedKeyDoor(8, 2)
     // Add Gui
     this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
     this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
@@ -287,7 +295,7 @@ class LevelThreeScene extends Phaser.Scene {
       this.goalGroup,
       function (playerCollide, goalCollide) {
         console.log("Finished Level Three")
-        //this.scene.switch("levelFourScene")
+        this.scene.switch("levelFourScene")
       }.bind(this)
     )
   }
