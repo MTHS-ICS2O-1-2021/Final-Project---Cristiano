@@ -20,16 +20,16 @@ class LevelFourScene extends Phaser.Scene {
     if (boxType == 1) {
       boxX = 100 + boxX * 200
       boxY = 100 + boxY * 200
-      const box = this.physics.add.sprite(boxX, boxY, "steelBoxImage").setScale(2.0)
-      box
-  
+      const box = this.physics.add
+        .sprite(boxX, boxY, "steelBoxImage")
+        .setScale(2.0)
+
       this.steelBoxGroup.add(box)
     } else {
       boxX = 100 + boxX * 200
       boxY = 100 + boxY * 200
       const box = this.physics.add.sprite(boxX, boxY, "boxImage").setScale(2.0)
-      box
-  
+
       this.boxGroup.add(box)
     }
   }
