@@ -84,7 +84,6 @@ class LevelTwoScene extends Phaser.Scene {
     this.goalGroup.add(goal)
   }
 
-
   /**
    * Constructs varibles
    */
