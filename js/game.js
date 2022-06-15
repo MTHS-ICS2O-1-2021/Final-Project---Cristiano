@@ -8,7 +8,7 @@ const debugMode = true
 
 import SplashScene from "./splashScene.js"
 import MenuScene from "./menuScene.js"
-import GameScene from "./levels/gameScene.js"
+import GameScene from "./gameScene.js"
 
 // Scenes
 const splashScene = new SplashScene()
@@ -41,7 +41,7 @@ game.scene.add("menuScene", menuScene)
 game.scene.add("gameScene", gameScene)
 
 if (debugMode == true) {
-  game.scene.start("gameScene", { level: 1 })
+  game.scene.start("gameScene", { level: 4 })
 } else {
   game.scene.start("splashScene")
 }
