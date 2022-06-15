@@ -41,7 +41,7 @@ game.scene.add("menuScene", menuScene)
 game.scene.add("gameScene", gameScene)
 
 if (debugMode == true) {
-  game.scene.start("gameScene", { level: 5 })
+  game.scene.start("gameScene", { level: 4 })
 } else {
   game.scene.start("splashScene")
 }
