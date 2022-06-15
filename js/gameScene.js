@@ -319,6 +319,49 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
+   * Loads in Level 5
+   */
+  addLevel5() {
+    // Add Player
+    this.player = this.physics.add.sprite(100, 100, "playerImage")
+    // Add Level
+    this.powerUpGroup = this.add.group()
+    this.addPowerUp(0, 4)
+    this.goalGroup = this.add.group()
+    this.addGoal(8, 0)
+    this.boxGroup = this.add.group()
+    this.addBoxLoopY(1, 5)
+    // Add Gui
+    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
+    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
+    // Add Text
+    this.loseText = this.add.text(
+      20,
+      1015,
+      "Times lost: " + this.timesLost,
+      this.loseTextStyle
+    )
+    this.tutorialText = this.add.text(
+      318,
+      325,
+      "After grabbing a power up, you can destroy regular boxes.\nSome boxes may have things hidden in them.\nSteel boxes cannot be destroyed.",
+      this.tutorialTextStyle
+    )
+    this.greenKeyCountText = this.add.text(
+      1832,
+      0,
+      greenKeysHeld,
+      this.greenKeyCountTextStyle
+    )
+    this.redKeyCountText = this.add.text(
+      1832,
+      100,
+      redKeysHeld,
+      this.redKeyCountTextStyle
+    )
+  }
+
+  /**
    * Constructs varibles
    */
   constructor() {
@@ -402,6 +445,8 @@ class GameScene extends Phaser.Scene {
       this.addLevel3()
     } else if (this.currentLevel === 4) {
       this.addLevel4()
+    } else if (this.currentLevel === 5) {
+      this.addLevel5()
     } else {
       console.log("Error: Unknown Level ID")
     }
