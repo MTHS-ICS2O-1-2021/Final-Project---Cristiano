@@ -8,18 +8,12 @@ const debugMode = true
 
 import SplashScene from "./splashScene.js"
 import MenuScene from "./menuScene.js"
-import LevelOneScene from "./levels/levelOneScene.js"
-import LevelTwoScene from "./levels/levelTwoScene.js"
-import LevelThreeScene from "./levels/levelThreeScene.js"
-import LevelFourScene from "./levels/levelFourScene.js"
+import GameScene from "./levels/gameScene.js"
 
 // Scenes
 const splashScene = new SplashScene()
 const menuScene = new MenuScene()
-const levelOneScene = new LevelOneScene()
-const levelTwoScene = new LevelTwoScene()
-const levelThreeScene = new LevelThreeScene()
-const levelFourScene = new LevelFourScene()
+const gameScene = new GameScene()
 
 // Game Settings
 const config = {
@@ -44,13 +38,10 @@ console.log(game)
 
 game.scene.add("splashScene", splashScene)
 game.scene.add("menuScene", menuScene)
-game.scene.add("levelOneScene", levelOneScene)
-game.scene.add("levelTwoScene", levelTwoScene)
-game.scene.add("levelThreeScene", levelThreeScene)
-game.scene.add("levelFourScene", levelFourScene)
+game.scene.add("gameScene", gameScene)
 
 if (debugMode == true) {
-  game.scene.start("levelFourScene")
+  game.scene.start("gameScene", { level: 1 })
 } else {
   game.scene.start("splashScene")
 }
