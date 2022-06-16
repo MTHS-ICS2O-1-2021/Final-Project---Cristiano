@@ -44,8 +44,8 @@ class GameScene extends Phaser.Scene {
     this.retryBackground = this.add.image(0, 0, "retryBackground")
     this.retryBackground.setOrigin(0, 0)
     this.retryButton = this.add
-            .sprite(1920 / 2, 1080 / 2, "retryButton")
-            .setScale(2.0)
+      .sprite(1920 / 2, 1080 / 2, "retryButton")
+      .setScale(2.0)
     this.retryButton.setInteractive({ useHandCursor: true })
     this.retryButton.on("pointerdown", () => this.retryLevel())
   }
