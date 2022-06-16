@@ -21,7 +21,7 @@ class GameScene extends Phaser.Scene {
   addPlayer(playerX, playerY) {
     playerX = 100 + playerX * 200
     playerY = 100 + playerY * 200
-    
+
     this.playerGroup = this.add.group()
     this.player = this.physics.add.sprite(playerX, playerY, "playerImage")
     this.playerGroup.add(this.player)
@@ -34,14 +34,14 @@ class GameScene extends Phaser.Scene {
     powerUpActive = false
     greenKeysHeld = 0
     redKeysHeld = 0
-    this.scene.start("gameScene", { level: this.currentLevel})
+    this.scene.start("gameScene", { level: this.currentLevel })
   }
 
   /**
    * Adds the retry button which adds the player when clicked
    */
   addRetryButton() {
-    this.retryBackground = this.add.image(0, 0, 'retryBackground')
+    this.retryBackground = this.add.image(0, 0, "retryBackground")
     this.retryBackground.setOrigin(0, 0)
     this.retryButton = this.add
             .sprite(1920 / 2, 1080 / 2, "retryButton")
@@ -611,7 +611,7 @@ class GameScene extends Phaser.Scene {
       function (playerCollide, goalCollide) {
         console.log("Finished Level " + this.currentLevel)
         powerUpActive = false
-        this.scene.start("gameScene", { 
+        this.scene.start("gameScene", {
           level: this.currentLevel + 1,
           justCompletedLevel: true,
         })
