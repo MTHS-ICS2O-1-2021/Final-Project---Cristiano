@@ -10,6 +10,13 @@
  */
 class MenuScene extends Phaser.Scene {
   /**
+   * Takes the player to gameScene's first level
+   */
+  onClick() {
+    this.scene.start("gameScene", { level: 1 })
+  }
+
+  /**
    * Constructs varibles
    */
   constructor() {
@@ -56,13 +63,6 @@ class MenuScene extends Phaser.Scene {
    * Updates every milisecond
    */
   update(time, delta) {}
-
-  /**
-   * Takes the player to gameScene's first level
-   */
-  onClick() {
-    this.scene.start("gameScene", { level: 1 })
-  }
 }
 
 export default MenuScene

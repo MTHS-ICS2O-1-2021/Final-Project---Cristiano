@@ -5,6 +5,7 @@
 // June 7 2022
 // Game Scene
 
+var timeCompleted = 0
 var timesLost = 0
 var powerUpActive = false
 var greenKeysHeld = 0
@@ -14,6 +15,26 @@ var redKeysHeld = 0
  * Phaser Scene
  */
 class GameScene extends Phaser.Scene {
+
+  /**
+   * Loads the current level
+   */
+  loadLevel() {
+    if (this.currentLevel === 1) {
+      this.addLevel1()
+    } else if (this.currentLevel === 2) {
+      this.addLevel2()
+    } else if (this.currentLevel === 3) {
+      this.addLevel3()
+    } else if (this.currentLevel === 4) {
+      this.addLevel4()
+    } else if (this.currentLevel === 5) {
+      this.addLevel5()
+    } else {
+      console.log("Error: Unknown Level ID")
+    }
+  }
+
   /**
    * Adds the player
    */
@@ -24,29 +45,6 @@ class GameScene extends Phaser.Scene {
     this.playerGroup = this.add.group()
     this.player = this.physics.add.sprite(playerX, playerY, "playerImage")
     this.playerGroup.add(this.player)
-  }
-
-  /**
-   * Reloads the current level
-   */
-  retryLevel(playerX, playerY) {
-    powerUpActive = false
-    greenKeysHeld = 0
-    redKeysHeld = 0
-    this.scene.start("gameScene", { level: this.currentLevel })
-  }
-
-  /**
-   * Adds the retry button which adds the player when clicked
-   */
-  addRetryButton() {
-    this.retryBackground = this.add.image(0, 0, "retryBackground")
-    this.retryBackground.setOrigin(0, 0)
-    this.retryButton = this.add
-      .sprite(1920 / 2, 1080 / 2, "retryButton")
-      .setScale(2.0)
-    this.retryButton.setInteractive({ useHandCursor: true })
-    this.retryButton.on("pointerdown", () => this.retryLevel())
   }
 
   /**
@@ -417,13 +415,11 @@ class GameScene extends Phaser.Scene {
 
     // Control Elements
     this.currentLevel = null
-    this.justCompletedLevel = null
 
     // Gui Elements
-    this.retryBackground = null
     this.bottomGui = null
     this.sideGui = null
-    this.retryButton = null
+    this.startButton = null
 
     // Text Elements
     this.loseText = null
@@ -458,7 +454,7 @@ class GameScene extends Phaser.Scene {
   init(data) {
     this.cameras.main.setBackgroundColor("#000000")
     this.currentLevel = data.level
-    this.justCompletedLevel = data.justCompletedLevel
+    timesLost = data.timesLost
   }
 
   /**
@@ -466,9 +462,6 @@ class GameScene extends Phaser.Scene {
    */
   preload() {
     console.log("Game Scene, Current Level: " + this.currentLevel)
-    if (this.justCompletedLevel === true) {
-      console.log("Level was completed.")
-    }
 
     // Images
     this.load.image("playerImage", "assets/playerImage.png")
@@ -483,28 +476,15 @@ class GameScene extends Phaser.Scene {
     this.load.image("redKeyDoorImage", "assets/redKeyDoor.png")
     this.load.image("bottomGui", "assets/bottomGUI.png")
     this.load.image("sideGui", "assets/sideGUI.png")
-    this.load.image("retryButton", "assets/retryButton.png")
-    this.load.image("retryBackground", "assets/retryBackground.png")
   }
 
   /**
    * Creates varibles and functions
    */
   create(data) {
-    // Load current level
-    if (this.currentLevel === 1) {
-      this.addLevel1()
-    } else if (this.currentLevel === 2) {
-      this.addLevel2()
-    } else if (this.currentLevel === 3) {
-      this.addLevel3()
-    } else if (this.currentLevel === 4) {
-      this.addLevel4()
-    } else if (this.currentLevel === 5) {
-      this.addLevel5()
-    } else {
-      console.log("Error: Unknown Level ID")
-    }
+    // Load the current level
+    this.loadLevel()
+    console.log("Level " + this.currentLevel + " Loaded.")
     // Box collision functions
     this.physics.add.collider(
       this.playerGroup,
@@ -516,8 +496,10 @@ class GameScene extends Phaser.Scene {
           redKeysHeld = 0
           powerUpActive = false
           timesLost++
-          this.loseText.text = "Times lost: " + timesLost
-          this.addRetryButton()
+          this.scene.start("retryLevelScene", {
+            level: this.currentLevel,
+            timesLost: timesLost,
+          })
         } else {
           boxCollide.destroy()
         }
@@ -532,8 +514,10 @@ class GameScene extends Phaser.Scene {
         greenKeysHeld = 0
         redKeysHeld = 0
         timesLost++
-        this.loseText.text = "Times lost: " + timesLost
-        this.addRetryButton()
+        this.scene.start("retryLevelScene", {
+          level: this.currentLevel,
+          timesLost: timesLost,
+        })
       }.bind(this)
     )
     // Power Up collision functions
@@ -560,8 +544,10 @@ class GameScene extends Phaser.Scene {
           greenKeysHeld = 0
           redKeysHeld = 0
           timesLost++
-          this.loseText.text = "Times lost: " + timesLost
-          this.addRetryButton()
+          this.scene.start("retryLevelScene", {
+            level: this.currentLevel,
+            timesLost: timesLost,
+          })
         }
       }.bind(this)
     )
@@ -589,8 +575,10 @@ class GameScene extends Phaser.Scene {
           greenKeysHeld = 0
           redKeysHeld = 0
           timesLost++
-          this.loseText.text = "Times lost: " + timesLost
-          this.addRetryButton()
+          this.scene.start("retryLevelScene", {
+            level: this.currentLevel,
+            timesLost: timesLost,
+          })
         }
       }.bind(this)
     )
@@ -610,9 +598,9 @@ class GameScene extends Phaser.Scene {
       function (playerCollide, goalCollide) {
         console.log("Finished Level " + this.currentLevel)
         powerUpActive = false
-        this.scene.start("gameScene", {
+        this.scene.start("loadLevelScene", {
           level: this.currentLevel + 1,
-          justCompletedLevel: true,
+          time: timeCompleted,
         })
       }.bind(this)
     )
@@ -659,6 +647,9 @@ class GameScene extends Phaser.Scene {
         this.player.x = 1750
       }
     }
+
+    // Update timer
+    timeCompleted = time
   }
 }
 
