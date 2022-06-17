@@ -14,7 +14,6 @@ var redKeysHeld = 0
  * Phaser Scene
  */
 class GameScene extends Phaser.Scene {
-
   /**
    * Adds the player
    */
