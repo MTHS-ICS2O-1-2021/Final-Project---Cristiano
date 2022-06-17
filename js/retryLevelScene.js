@@ -9,7 +9,6 @@
  * Phaser Scene
  */
 class RetryLevelScene extends Phaser.Scene {
-
   /**
    * Takes the player back to gameScene
    */
