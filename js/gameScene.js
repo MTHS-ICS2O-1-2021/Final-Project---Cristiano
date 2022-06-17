@@ -5,6 +5,8 @@
 // June 7 2022
 // Game Scene
 
+var timeCompleted = 0
+var timesLost = 0
 var powerUpActive = false
 var greenKeysHeld = 0
 var redKeysHeld = 0
@@ -14,7 +16,38 @@ var redKeysHeld = 0
  */
 class GameScene extends Phaser.Scene {
   /**
-   * Adds a dangerous box
+   * Loads the current level
+   */
+  loadLevel() {
+    if (this.currentLevel === 1) {
+      this.addLevel1()
+    } else if (this.currentLevel === 2) {
+      this.addLevel2()
+    } else if (this.currentLevel === 3) {
+      this.addLevel3()
+    } else if (this.currentLevel === 4) {
+      this.addLevel4()
+    } else if (this.currentLevel === 5) {
+      this.addLevel5()
+    } else {
+      console.log("Error: Unknown Level ID")
+    }
+  }
+
+  /**
+   * Adds the player
+   */
+  addPlayer(playerX, playerY) {
+    playerX = 100 + playerX * 200
+    playerY = 100 + playerY * 200
+
+    this.playerGroup = this.add.group()
+    this.player = this.physics.add.sprite(playerX, playerY, "playerImage")
+    this.playerGroup.add(this.player)
+  }
+
+  /**
+   * Adds a box depending on its type
    */
   addBox(boxX, boxY, boxType) {
     if (boxType == 1) {
@@ -35,7 +68,7 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
-   * Adds dangerous boxes in a line along the y axis
+   * Adds boxes in a line along the y axis
    */
   addBoxLoopY(boxX, numberOfBoxes, skippedBoxes, boxType) {
     for (let count = 0; count != numberOfBoxes; count++) {
@@ -48,7 +81,7 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
-   * Adds dangerous boxes in a line along the x axis
+   * Adds boxes in a line along the x axis
    */
   addBoxLoopX(boxY, numberOfBoxes, skippedBoxes, boxType) {
     for (let count = 0; count != numberOfBoxes; count++) {
@@ -61,7 +94,7 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
-   * Adds a green key door
+   * Adds a green key door that opens with a green key
    */
   addGreenKeyDoor(keyDoorX, keyDoorY) {
     keyDoorX = 100 + keyDoorX * 200
@@ -74,7 +107,7 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
-   * Adds a red key door
+   * Adds a red key door that opens with a red key
    */
   addRedKeyDoor(keyDoorX, keyDoorY) {
     keyDoorX = 100 + keyDoorX * 200
@@ -120,7 +153,7 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
-   * Adds the goal post
+   * Adds the goal post that brings the player to the next level
    */
   addGoal(goalX, goalY) {
     goalX = 100 + goalX * 200
@@ -135,7 +168,7 @@ class GameScene extends Phaser.Scene {
    */
   addLevel1() {
     // Add Player
-    this.player = this.physics.add.sprite(100, 100, "playerImage")
+    this.addPlayer(0, 0)
     // Add Level
     this.boxGroup = this.add.group()
     this.addBoxLoopY(1, 4)
@@ -152,7 +185,7 @@ class GameScene extends Phaser.Scene {
     this.loseText = this.add.text(
       20,
       1015,
-      "Times lost: " + this.timesLost,
+      "Times lost: " + timesLost,
       this.loseTextStyle
     )
     this.tutorialText = this.add.text(
@@ -168,7 +201,7 @@ class GameScene extends Phaser.Scene {
    */
   addLevel2() {
     // Add Player
-    this.player = this.physics.add.sprite(100, 100, "playerImage")
+    this.addPlayer(0, 0)
     // Add Level
     this.boxGroup = this.add.group()
     this.addBoxLoopY(1, 3)
@@ -188,7 +221,7 @@ class GameScene extends Phaser.Scene {
     this.loseText = this.add.text(
       20,
       1015,
-      "Times lost: " + this.timesLost,
+      "Times lost: " + timesLost,
       this.loseTextStyle
     )
     this.tutorialText = this.add.text(
@@ -210,7 +243,7 @@ class GameScene extends Phaser.Scene {
    */
   addLevel3() {
     // Add Player
-    this.player = this.physics.add.sprite(100, 100, "playerImage")
+    this.addPlayer(0, 0)
     // Add Level
     this.boxGroup = this.add.group()
     this.addBoxLoopY(1, 3)
@@ -234,7 +267,7 @@ class GameScene extends Phaser.Scene {
     this.loseText = this.add.text(
       20,
       1015,
-      "Times lost: " + this.timesLost,
+      "Times lost: " + timesLost,
       this.loseTextStyle
     )
     this.tutorialText = this.add.text(
@@ -262,7 +295,7 @@ class GameScene extends Phaser.Scene {
    */
   addLevel4() {
     // Add Player
-    this.player = this.physics.add.sprite(100, 100, "playerImage")
+    this.addPlayer(0, 0)
     // Add Level
     this.powerUpGroup = this.add.group()
     this.addPowerUp(0, 4)
@@ -295,7 +328,7 @@ class GameScene extends Phaser.Scene {
     this.loseText = this.add.text(
       20,
       1015,
-      "Times lost: " + this.timesLost,
+      "Times lost: " + timesLost,
       this.loseTextStyle
     )
     this.tutorialText = this.add.text(
@@ -323,7 +356,7 @@ class GameScene extends Phaser.Scene {
    */
   addLevel5() {
     // Add Player
-    this.player = this.physics.add.sprite(100, 100, "playerImage")
+    this.addPlayer(0, 0)
     // Add Level
     this.powerUpGroup = this.add.group()
     this.addPowerUp(0, 4)
@@ -347,7 +380,7 @@ class GameScene extends Phaser.Scene {
     this.loseText = this.add.text(
       20,
       1015,
-      "Times lost: " + this.timesLost,
+      "Times lost: " + timesLost,
       this.loseTextStyle
     )
     this.tutorialText = this.add.text(
@@ -378,12 +411,14 @@ class GameScene extends Phaser.Scene {
 
     // Player Element
     this.player = null
+
+    // Control Elements
     this.currentLevel = null
 
     // Gui Elements
-    this.timesLost = null
     this.bottomGui = null
     this.sideGui = null
+    this.startButton = null
 
     // Text Elements
     this.loseText = null
@@ -418,6 +453,7 @@ class GameScene extends Phaser.Scene {
   init(data) {
     this.cameras.main.setBackgroundColor("#000000")
     this.currentLevel = data.level
+    timesLost = data.timesLost
   }
 
   /**
@@ -426,6 +462,7 @@ class GameScene extends Phaser.Scene {
   preload() {
     console.log("Game Scene, Current Level: " + this.currentLevel)
 
+    // Images
     this.load.image("playerImage", "assets/playerImage.png")
     this.load.image("playerPoweredUpImage", "assets/playerPoweredUp.png")
     this.load.image("boxImage", "assets/box.png")
@@ -444,59 +481,56 @@ class GameScene extends Phaser.Scene {
    * Creates varibles and functions
    */
   create(data) {
-    // Set times lost
-    this.timesLost = 0
-    if (this.currentLevel === 1) {
-      this.addLevel1()
-    } else if (this.currentLevel === 2) {
-      this.addLevel2()
-    } else if (this.currentLevel === 3) {
-      this.addLevel3()
-    } else if (this.currentLevel === 4) {
-      this.addLevel4()
-    } else if (this.currentLevel === 5) {
-      this.addLevel5()
-    } else {
-      console.log("Error: Unknown Level ID")
-    }
+    // Load the current level
+    this.loadLevel()
+    console.log("Level " + this.currentLevel + " Loaded.")
     // Box collision functions
     this.physics.add.collider(
-      this.player,
+      this.playerGroup,
       this.boxGroup,
       function (playerCollide, boxCollide) {
         if (powerUpActive != true) {
-          this.timesLost++
-          this.loseText.text = "Times lost: " + this.timesLost
-          playerCollide.x = 100
-          playerCollide.y = 100
+          playerCollide.destroy()
+          greenKeysHeld = 0
+          redKeysHeld = 0
+          powerUpActive = false
+          timesLost++
+          this.scene.start("retryLevelScene", {
+            level: this.currentLevel,
+            timesLost: timesLost,
+          })
         } else {
           boxCollide.destroy()
         }
       }.bind(this)
     )
     this.physics.add.collider(
-      this.player,
+      this.playerGroup,
       this.steelBoxGroup,
       function (playerCollide, boxCollide) {
-        this.timesLost++
-        this.loseText.text = "Times lost: " + this.timesLost
-        playerCollide.x = 100
-        playerCollide.y = 100
+        playerCollide.destroy()
+        powerUpActive = false
+        greenKeysHeld = 0
+        redKeysHeld = 0
+        timesLost++
+        this.scene.start("retryLevelScene", {
+          level: this.currentLevel,
+          timesLost: timesLost,
+        })
       }.bind(this)
     )
     // Power Up collision functions
     this.physics.add.collider(
-      this.player,
+      this.playerGroup,
       this.powerUpGroup,
       function (playerCollide, powerUpCollide) {
         playerCollide.setTexture("playerPoweredUpImage")
-        powerUpCollide.destroy()
         powerUpActive = true
       }.bind(this)
     )
     // Green key collision functions
     this.physics.add.collider(
-      this.player,
+      this.playerGroup,
       this.greenKeyDoorGroup,
       function (playerCollide, boxCollide) {
         if (greenKeysHeld > 0) {
@@ -504,15 +538,20 @@ class GameScene extends Phaser.Scene {
           greenKeysHeld = greenKeysHeld - 1
           this.greenKeyCountText.text = greenKeysHeld
         } else {
-          this.timesLost++
-          this.loseText.text = "Times lost: " + this.timesLost
-          playerCollide.x = 100
-          playerCollide.y = 100
+          playerCollide.destroy()
+          powerUpActive = false
+          greenKeysHeld = 0
+          redKeysHeld = 0
+          timesLost++
+          this.scene.start("retryLevelScene", {
+            level: this.currentLevel,
+            timesLost: timesLost,
+          })
         }
       }.bind(this)
     )
     this.physics.add.collider(
-      this.player,
+      this.playerGroup,
       this.greenKeyGroup,
       function (playerCollide, keyCollide) {
         keyCollide.destroy()
@@ -522,7 +561,7 @@ class GameScene extends Phaser.Scene {
     )
     // Red key collision functions
     this.physics.add.collider(
-      this.player,
+      this.playerGroup,
       this.redKeyDoorGroup,
       function (playerCollide, boxCollide) {
         if (redKeysHeld > 0) {
@@ -530,15 +569,20 @@ class GameScene extends Phaser.Scene {
           redKeysHeld = redKeysHeld - 1
           this.redKeyCountText.text = redKeysHeld
         } else {
-          this.timesLost++
-          this.loseText.text = "Times lost: " + this.timesLost
-          playerCollide.x = 100
-          playerCollide.y = 100
+          playerCollide.destroy()
+          powerUpActive = false
+          greenKeysHeld = 0
+          redKeysHeld = 0
+          timesLost++
+          this.scene.start("retryLevelScene", {
+            level: this.currentLevel,
+            timesLost: timesLost,
+          })
         }
       }.bind(this)
     )
     this.physics.add.collider(
-      this.player,
+      this.playerGroup,
       this.redKeyGroup,
       function (playerCollide, keyCollide) {
         keyCollide.destroy()
@@ -548,11 +592,15 @@ class GameScene extends Phaser.Scene {
     )
     // Goal collision function
     this.physics.add.collider(
-      this.player,
+      this.playerGroup,
       this.goalGroup,
       function (playerCollide, goalCollide) {
         console.log("Finished Level " + this.currentLevel)
-        this.scene.start("gameScene", { level: this.currentLevel + 1 })
+        powerUpActive = false
+        this.scene.start("loadLevelScene", {
+          level: this.currentLevel + 1,
+          time: timeCompleted,
+        })
       }.bind(this)
     )
   }
@@ -598,6 +646,9 @@ class GameScene extends Phaser.Scene {
         this.player.x = 1750
       }
     }
+
+    // Update timer
+    timeCompleted = time
   }
 }
 
