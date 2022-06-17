@@ -76,12 +76,7 @@ class RetryLevelScene extends Phaser.Scene {
     this.retryButton.on("pointerdown", () => this.onClick())
     // Add Text
     this.retryText = this.add
-      .text(
-      1920 / 2,
-      1080 / 2 - 200,
-      "You lost!",
-      this.retryTextStyle
-    )
+      .text(1920 / 2, 1080 / 2 - 200, "You lost!", this.retryTextStyle)
       .setOrigin(0.5)
   }
 

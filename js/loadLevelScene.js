@@ -9,7 +9,6 @@
  * Phaser Scene
  */
 class LoadLevelScene extends Phaser.Scene {
-
   /**
    * Takes the player to gameScene
    */
@@ -73,7 +72,11 @@ class LoadLevelScene extends Phaser.Scene {
       .text(
       1920 / 2,
       1080 / 2 - 200,
-      "You completed Level " + (this.nextLevel - 1) + " in " + this.timeCompleted + " seconds!",
+      "You completed Level " +
+        (this.nextLevel - 1) +
+        " in " +
+        this.timeCompleted +
+        " seconds!",
       this.timeTextStyle
     )
       .setOrigin(0.5)
