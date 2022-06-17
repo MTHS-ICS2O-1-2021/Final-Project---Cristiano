@@ -70,15 +70,15 @@ class LoadLevelScene extends Phaser.Scene {
     // Add Text
     this.timeText = this.add
       .text(
-      1920 / 2,
-      1080 / 2 - 200,
-      "You completed Level " +
-        (this.nextLevel - 1) +
-        " in " +
-        this.timeCompleted +
-        " seconds!",
-      this.timeTextStyle
-    )
+        1920 / 2,
+        1080 / 2 - 200,
+        "You completed Level " +
+          (this.nextLevel - 1) +
+          " in " +
+          this.timeCompleted +
+          " seconds!",
+        this.timeTextStyle
+      )
       .setOrigin(0.5)
   }
 
