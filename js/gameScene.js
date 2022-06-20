@@ -318,7 +318,7 @@ class GameScene extends Phaser.Scene {
     this.addPlayer(0, 0)
     // Add Level
     this.powerUpGroup = this.add.group()
-    this.addPowerUp(0, 1)
+    this.addPowerUp(0, 2)
     this.goalGroup = this.add.group()
     this.addGoal(8, 0)
     this.greenKeyGroup = this.add.group()
@@ -341,7 +341,7 @@ class GameScene extends Phaser.Scene {
     this.steelBoxGroup = this.add.group()
     this.addBox(1, 0)
     this.addBox(2, 0)
-    this.addBoxLoopY(0, 4, 2, 1)
+    this.addBox(0, 3, 1)
     this.addBoxLoopY(1, 4, 1, 1)
     this.addBoxLoopY(2, 4, 1, 1)
     this.addBoxLoopX(3, 8, 4, 1)
