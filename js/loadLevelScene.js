@@ -72,9 +72,7 @@ class LoadLevelScene extends Phaser.Scene {
       .text(
         1920 / 2,
         1080 / 2 - 200,
-        "Your current time is " +
-          this.timeCompleted +
-          " seconds!",
+        "Your current time is " + this.timeCompleted + " seconds!",
         this.timeTextStyle
       )
       .setOrigin(0.5)
