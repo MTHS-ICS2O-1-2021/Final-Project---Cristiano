@@ -120,7 +120,7 @@ class GameScene extends Phaser.Scene {
     this.redKeyDoorGroup.add(keyDoor)
   }
 
-/**
+  /**
    * Adds a red blue key door that opens with a blue key
    */
   addBlueKeyDoor(keyDoorX, keyDoorY) {
@@ -203,9 +203,6 @@ class GameScene extends Phaser.Scene {
     this.addBoxLoopY(8, 5, 1)
     this.goalGroup = this.add.group()
     this.addGoal(8, 0)
-    // Add Gui
-    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
-    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
     // Add Text
     this.tutorialText = this.add.text(
       405,
@@ -233,9 +230,6 @@ class GameScene extends Phaser.Scene {
     this.addGreenKey(8, 0)
     this.greenKeyDoorGroup = this.add.group()
     this.addGreenKeyDoor(6, 3)
-    // Add Gui
-    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
-    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
     // Add Text
     this.tutorialText = this.add.text(
       460,
@@ -267,9 +261,6 @@ class GameScene extends Phaser.Scene {
     this.addRedKey(6, 3)
     this.redKeyDoorGroup = this.add.group()
     this.addRedKeyDoor(8, 2)
-    // Add Gui
-    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
-    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
     // Add Text
     this.tutorialText = this.add.text(
       420,
@@ -310,9 +301,6 @@ class GameScene extends Phaser.Scene {
     this.addBoxLoopY(6, 5)
     this.addBoxLoopY(7, 2, 0, 1)
     this.addBoxLoopY(7, 5, 2)
-    // Add Gui
-    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
-    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
     // Add Text
     this.tutorialText = this.add.text(
       318,
@@ -361,9 +349,6 @@ class GameScene extends Phaser.Scene {
     this.addBoxLoopY(5, 3)
     this.addBoxLoopY(6, 3)
     this.addBoxLoopY(7, 3, 0, 1)
-    // Add Gui
-    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
-    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
     // Add Text
     this.tutorialText = this.add.text(
       820,
@@ -473,7 +458,9 @@ class GameScene extends Phaser.Scene {
     // Load the current level
     this.loadLevel()
     console.log("Level " + this.currentLevel + " Loaded.")
-    // GUI Text
+    // Load GUI Elements
+    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
+    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
     this.loseText = this.add.text(
       20,
       1015,
