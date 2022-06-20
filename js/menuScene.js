@@ -13,7 +13,10 @@ class MenuScene extends Phaser.Scene {
    * Takes the player to gameScene's first level
    */
   onClick() {
-    this.scene.start("gameScene", { level: 1 })
+    this.scene.start("gameScene", {
+      level: 1,
+      timesLost: 0,
+    })
   }
 
   /**

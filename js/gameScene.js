@@ -5,11 +5,12 @@
 // June 7 2022
 // Game Scene
 
+var powerUpActive = false
 var timeCompleted = 0
 var timesLost = 0
-var powerUpActive = false
 var greenKeysHeld = 0
 var redKeysHeld = 0
+var blueKeysHeld = 0
 
 /**
  * Phaser Scene
@@ -120,6 +121,19 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
+   * Adds a red blue key door that opens with a blue key
+   */
+  addBlueKeyDoor(keyDoorX, keyDoorY) {
+    keyDoorX = 100 + keyDoorX * 200
+    keyDoorY = 100 + keyDoorY * 200
+    const keyDoor = this.physics.add
+      .sprite(keyDoorX, keyDoorY, "blueKeyDoorImage")
+      .setScale(2.0)
+
+    this.blueKeyDoorGroup.add(keyDoor)
+  }
+
+  /**
    * Adds a green key that opens a green key door
    */
   addGreenKey(keyX, keyY) {
@@ -139,6 +153,17 @@ class GameScene extends Phaser.Scene {
     const key = this.physics.add.sprite(keyX, keyY, "redKeyImage")
 
     this.redKeyGroup.add(key)
+  }
+
+  /**
+   * Adds a blue key that opens a blue key door
+   */
+  addBlueKey(keyX, keyY) {
+    keyX = 100 + keyX * 200
+    keyY = 100 + keyY * 200
+    const key = this.physics.add.sprite(keyX, keyY, "blueKeyImage")
+
+    this.blueKeyGroup.add(key)
   }
 
   /**
@@ -178,16 +203,7 @@ class GameScene extends Phaser.Scene {
     this.addBoxLoopY(8, 5, 1)
     this.goalGroup = this.add.group()
     this.addGoal(8, 0)
-    // Add Gui
-    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
-    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
     // Add Text
-    this.loseText = this.add.text(
-      20,
-      1015,
-      "Times lost: " + timesLost,
-      this.loseTextStyle
-    )
     this.tutorialText = this.add.text(
       405,
       100,
@@ -214,27 +230,12 @@ class GameScene extends Phaser.Scene {
     this.addGreenKey(8, 0)
     this.greenKeyDoorGroup = this.add.group()
     this.addGreenKeyDoor(6, 3)
-    // Add Gui
-    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
-    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
     // Add Text
-    this.loseText = this.add.text(
-      20,
-      1015,
-      "Times lost: " + timesLost,
-      this.loseTextStyle
-    )
     this.tutorialText = this.add.text(
       460,
       250,
       "Grab the key and touch \nthe key door to open it.",
       this.tutorialTextStyle
-    )
-    this.greenKeyCountText = this.add.text(
-      1832,
-      0,
-      greenKeysHeld,
-      this.greenKeyCountTextStyle
     )
   }
 
@@ -260,33 +261,12 @@ class GameScene extends Phaser.Scene {
     this.addRedKey(6, 3)
     this.redKeyDoorGroup = this.add.group()
     this.addRedKeyDoor(8, 2)
-    // Add Gui
-    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
-    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
     // Add Text
-    this.loseText = this.add.text(
-      20,
-      1015,
-      "Times lost: " + timesLost,
-      this.loseTextStyle
-    )
     this.tutorialText = this.add.text(
       420,
       250,
       "Keys can only open the key\ndoor matching their colour.",
       this.tutorialTextStyle
-    )
-    this.greenKeyCountText = this.add.text(
-      1832,
-      0,
-      greenKeysHeld,
-      this.greenKeyCountTextStyle
-    )
-    this.redKeyCountText = this.add.text(
-      1832,
-      100,
-      redKeysHeld,
-      this.redKeyCountTextStyle
     )
   }
 
@@ -321,33 +301,12 @@ class GameScene extends Phaser.Scene {
     this.addBoxLoopY(6, 5)
     this.addBoxLoopY(7, 2, 0, 1)
     this.addBoxLoopY(7, 5, 2)
-    // Add Gui
-    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
-    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
     // Add Text
-    this.loseText = this.add.text(
-      20,
-      1015,
-      "Times lost: " + timesLost,
-      this.loseTextStyle
-    )
     this.tutorialText = this.add.text(
       318,
       325,
-      "After grabbing a power up, you can destroy regular boxes.\nSome boxes may have things hidden in them.\nSteel boxes cannot be destroyed.",
+      "After touching a power up, you can destroy regular boxes.\nSome boxes may have things hidden in them.\nSteel boxes cannot be destroyed by many means.",
       this.tutorialTextStyle
-    )
-    this.greenKeyCountText = this.add.text(
-      1832,
-      0,
-      greenKeysHeld,
-      this.greenKeyCountTextStyle
-    )
-    this.redKeyCountText = this.add.text(
-      1832,
-      100,
-      redKeysHeld,
-      this.redKeyCountTextStyle
     )
   }
 
@@ -359,47 +318,43 @@ class GameScene extends Phaser.Scene {
     this.addPlayer(0, 0)
     // Add Level
     this.powerUpGroup = this.add.group()
-    this.addPowerUp(0, 4)
+    this.addPowerUp(0, 2)
     this.goalGroup = this.add.group()
     this.addGoal(8, 0)
     this.greenKeyGroup = this.add.group()
-    this.addGreenKey(2, 0)
-    this.greenKeyDoorGroup = this.add.group()
-    this.addGreenKeyDoor(4, 3)
     this.redKeyGroup = this.add.group()
-    this.addRedKey(4, 4)
+    this.blueKeyGroup = this.add.group()
+    this.addBlueKey(0, 4)
+    this.addGreenKey(5, 0)
+    this.addGreenKey(6, 1)
+    this.addRedKey(4, 1)
+    this.addRedKey(5, 2)
+    this.greenKeyDoorGroup = this.add.group()
     this.redKeyDoorGroup = this.add.group()
-    this.addRedKeyDoor(8, 1)
+    this.blueKeyDoorGroup = this.add.group()
+    this.addGreenKeyDoor(3, 3)
+    this.addRedKeyDoor(3, 4)
+    this.addBlueKeyDoor(6, 4)
+    this.addGreenKeyDoor(4, 4)
+    this.addRedKeyDoor(5, 4)
     this.boxGroup = this.add.group()
     this.steelBoxGroup = this.add.group()
-    this.addBoxLoopY(1, 5)
-    // Add Gui
-    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
-    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
+    this.addBox(1, 0)
+    this.addBox(2, 0)
+    this.addBox(0, 3, 1)
+    this.addBoxLoopY(1, 4, 1, 1)
+    this.addBoxLoopY(2, 4, 1, 1)
+    this.addBoxLoopX(3, 8, 4, 1)
+    this.addBoxLoopY(4, 3)
+    this.addBoxLoopY(5, 3)
+    this.addBoxLoopY(6, 3)
+    this.addBoxLoopY(7, 3, 0, 1)
     // Add Text
-    this.loseText = this.add.text(
-      20,
-      1015,
-      "Times lost: " + timesLost,
-      this.loseTextStyle
-    )
     this.tutorialText = this.add.text(
-      318,
-      325,
-      "After grabbing a power up, you can destroy regular boxes.\nSome boxes may have things hidden in them.\nSteel boxes cannot be destroyed.",
-      this.tutorialTextStyle
-    )
-    this.greenKeyCountText = this.add.text(
-      1832,
-      0,
-      greenKeysHeld,
-      this.greenKeyCountTextStyle
-    )
-    this.redKeyCountText = this.add.text(
-      1832,
-      100,
-      redKeysHeld,
-      this.redKeyCountTextStyle
+      820,
+      660,
+      "You can hold multiple keys at the same time.\nThe number of keys held is listed on the top right.",
+      this.tutorialTextLV5Style
     )
   }
 
@@ -433,6 +388,11 @@ class GameScene extends Phaser.Scene {
       fill: "#ffffff",
       align: "center",
     }
+    this.tutorialTextLV5Style = {
+      font: "35px Arial",
+      fill: "#ffffff",
+      align: "center",
+    }
     this.greenKeyCountText = null
     this.greenKeyCountTextStyle = {
       font: "100px Arial",
@@ -443,6 +403,18 @@ class GameScene extends Phaser.Scene {
     this.redKeyCountTextStyle = {
       font: "100px Arial",
       fill: "#cc0000ff",
+      align: "center",
+    }
+    this.blueKeyCountText = null
+    this.blueKeyCountTextStyle = {
+      font: "100px Arial",
+      fill: "#3c78d8ff",
+      align: "center",
+    }
+    this.timerText = null
+    this.timerTextStyle = {
+      font: "50px Arial",
+      fill: "#ffffff",
       align: "center",
     }
   }
@@ -473,6 +445,8 @@ class GameScene extends Phaser.Scene {
     this.load.image("keyDoorImage", "assets/keyDoor.png")
     this.load.image("redKeyImage", "assets/redKey.png")
     this.load.image("redKeyDoorImage", "assets/redKeyDoor.png")
+    this.load.image("blueKeyImage", "assets/blueKey.png")
+    this.load.image("blueKeyDoorImage", "assets/blueKeyDoor.png")
     this.load.image("bottomGui", "assets/bottomGUI.png")
     this.load.image("sideGui", "assets/sideGUI.png")
   }
@@ -484,6 +458,33 @@ class GameScene extends Phaser.Scene {
     // Load the current level
     this.loadLevel()
     console.log("Level " + this.currentLevel + " Loaded.")
+    // Load GUI Elements
+    this.bottomGui = this.physics.add.sprite(0, 1197, "bottomGui").setScale(4.0)
+    this.sideBui = this.physics.add.sprite(1965, 0, "sideGui").setScale(3.0)
+    this.loseText = this.add.text(
+      20,
+      1015,
+      "Times lost: " + timesLost,
+      this.loseTextStyle
+    )
+    this.greenKeyCountText = this.add.text(
+      1832,
+      0,
+      greenKeysHeld,
+      this.greenKeyCountTextStyle
+    )
+    this.redKeyCountText = this.add.text(
+      1832,
+      100,
+      redKeysHeld,
+      this.redKeyCountTextStyle
+    )
+    this.blueKeyCountText = this.add.text(
+      1832,
+      200,
+      blueKeysHeld,
+      this.blueKeyCountTextStyle
+    )
     // Box collision functions
     this.physics.add.collider(
       this.playerGroup,
@@ -542,6 +543,7 @@ class GameScene extends Phaser.Scene {
           powerUpActive = false
           greenKeysHeld = 0
           redKeysHeld = 0
+          blueKeysHeld = 0
           timesLost++
           this.scene.start("retryLevelScene", {
             level: this.currentLevel,
@@ -573,6 +575,7 @@ class GameScene extends Phaser.Scene {
           powerUpActive = false
           greenKeysHeld = 0
           redKeysHeld = 0
+          blueKeysHeld = 0
           timesLost++
           this.scene.start("retryLevelScene", {
             level: this.currentLevel,
@@ -588,6 +591,38 @@ class GameScene extends Phaser.Scene {
         keyCollide.destroy()
         redKeysHeld++
         this.redKeyCountText.text = redKeysHeld
+      }.bind(this)
+    )
+    // Blue key collision functions
+    this.physics.add.collider(
+      this.playerGroup,
+      this.blueKeyDoorGroup,
+      function (playerCollide, boxCollide) {
+        if (blueKeysHeld > 0) {
+          boxCollide.destroy()
+          blueKeysHeld = blueKeysHeld - 1
+          this.blueKeyCountText.text = blueKeysHeld
+        } else {
+          playerCollide.destroy()
+          powerUpActive = false
+          greenKeysHeld = 0
+          redKeysHeld = 0
+          blueKeysHeld = 0
+          timesLost++
+          this.scene.start("retryLevelScene", {
+            level: this.currentLevel,
+            timesLost: timesLost,
+          })
+        }
+      }.bind(this)
+    )
+    this.physics.add.collider(
+      this.playerGroup,
+      this.blueKeyGroup,
+      function (playerCollide, keyCollide) {
+        keyCollide.destroy()
+        blueKeysHeld++
+        this.blueKeyCountText.text = blueKeysHeld
       }.bind(this)
     )
     // Goal collision function
