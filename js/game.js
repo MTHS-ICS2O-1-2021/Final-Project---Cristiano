@@ -48,7 +48,7 @@ game.scene.add("retrylevelScene", retrylevelScene)
 
 if (debugMode == true) {
   game.scene.start("gameScene", {
-    level: 5,
+    level: 9,
     timesLost: 0,
   })
 } else {

@@ -39,6 +39,12 @@ class LoadLevelScene extends Phaser.Scene {
       fill: "#ffffffff",
       align: "center",
     }
+    this.nextLevelText = null
+    this.nextLevelTextStyle = {
+      font: "75px Arial",
+      fill: "#ffffffff",
+      align: "center",
+    }
   }
 
   /**
@@ -74,6 +80,14 @@ class LoadLevelScene extends Phaser.Scene {
         1080 / 2 - 200,
         "Your current time is " + this.timeCompleted + " seconds!",
         this.timeTextStyle
+      )
+      .setOrigin(0.5)
+    this.nextLevelText = this.add
+      .text(
+        1920 / 2,
+        1080 / 2 + 200,
+        "Up next: Level " + this.nextLevel,
+        this.nextLevelTextStyle
       )
       .setOrigin(0.5)
   }
