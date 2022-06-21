@@ -30,8 +30,17 @@ class GameScene extends Phaser.Scene {
       this.addLevel4()
     } else if (this.currentLevel === 5) {
       this.addLevel5()
+    } else if (this.currentLevel === 6) {
+      this.addLevel6()
+    } else if (this.currentLevel === 7) {
+      this.addLevel7()
+    } else if (this.currentLevel === 8) {
+      this.addLevel8()
+    } else if (this.currentLevel === 9) {
+      this.addLevel9()
     } else {
-      console.log("Error: Unknown Level ID")
+      console.log("Error: unknown level ID. Loading the test level.")
+      this.addLevelTest()
     }
   }
 
@@ -189,20 +198,63 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
+   * Loads in the test level
+   */
+  addLevelTest() {
+    // Add Player
+    this.addPlayer(0, 0)
+    // Load Level
+    // Add Goal
+    this.goalGroup = this.add.group()
+    this.addGoal(8, 0)
+    // Add Power Up
+    this.powerUpGroup = this.add.group()
+    this.addPowerUp(4, 0)
+    // Add Keys
+    this.greenKeyGroup = this.add.group()
+    this.redKeyGroup = this.add.group()
+    this.blueKeyGroup = this.add.group()
+    this.addBlueKey(6, 2)
+    this.addRedKey(6, 1)
+    this.addGreenKey(6, 0)
+    // Add Key Doors
+    this.greenKeyDoorGroup = this.add.group()
+    this.redKeyDoorGroup = this.add.group()
+    this.blueKeyDoorGroup = this.add.group()
+    this.addGreenKeyDoor(2, 4)
+    this.addRedKeyDoor(3, 4)
+    this.addBlueKeyDoor(4, 4)
+    // Add Boxes
+    this.boxGroup = this.add.group()
+    this.steelBoxGroup = this.add.group()
+    this.addBoxLoopY(7, 3, 0, 1)
+    this.addBoxLoopY(6, 3)
+    // Add Text
+    this.tutorialText = this.add.text(
+      820,
+      660,
+      "Tutorial Text",
+      this.tutorialTextStyle
+    )
+  }
+
+  /**
    * Loads in Level 1
    */
   addLevel1() {
     // Add Player
     this.addPlayer(0, 0)
-    // Add Level
+    // Load Level
+    // Add Goal
+    this.goalGroup = this.add.group()
+    this.addGoal(8, 0)
+    // Add Boxes
     this.boxGroup = this.add.group()
     this.addBoxLoopY(1, 4)
     this.addBoxLoopX(3, 5, 2)
     this.addBoxLoopY(5, 4)
     this.addBoxLoopY(7, 5, 1)
     this.addBoxLoopY(8, 5, 1)
-    this.goalGroup = this.add.group()
-    this.addGoal(8, 0)
     // Add Text
     this.tutorialText = this.add.text(
       405,
@@ -218,18 +270,22 @@ class GameScene extends Phaser.Scene {
   addLevel2() {
     // Add Player
     this.addPlayer(0, 0)
-    // Add Level
+    // Load Level
+    // Add Goal
+    this.goalGroup = this.add.group()
+    this.addGoal(6, 0)
+    // Add Key
+    this.greenKeyGroup = this.add.group()
+    this.addGreenKey(8, 0)
+    // Add Key Door
+    this.greenKeyDoorGroup = this.add.group()
+    this.addGreenKeyDoor(6, 3)
+    // Add Boxes
     this.boxGroup = this.add.group()
     this.addBoxLoopY(1, 3)
     this.addBoxLoopX(3, 6, 1)
     this.addBoxLoopY(5, 3)
     this.addBoxLoopY(7, 4)
-    this.goalGroup = this.add.group()
-    this.addGoal(6, 0)
-    this.greenKeyGroup = this.add.group()
-    this.addGreenKey(8, 0)
-    this.greenKeyDoorGroup = this.add.group()
-    this.addGreenKeyDoor(6, 3)
     // Add Text
     this.tutorialText = this.add.text(
       460,
@@ -245,22 +301,26 @@ class GameScene extends Phaser.Scene {
   addLevel3() {
     // Add Player
     this.addPlayer(0, 0)
-    // Add Level
+    // Load Level
+    // Add Goal
+    this.goalGroup = this.add.group()
+    this.addGoal(6, 0)
+    // Add Keys
+    this.greenKeyGroup = this.add.group()
+    this.addGreenKey(8, 0)
+    this.redKeyGroup = this.add.group()
+    this.addRedKey(6, 3)
+    // Add Key Doors
+    this.greenKeyDoorGroup = this.add.group()
+    this.addGreenKeyDoor(6, 2)
+    this.redKeyDoorGroup = this.add.group()
+    this.addRedKeyDoor(8, 2)
+    // Add Boxes
     this.boxGroup = this.add.group()
     this.addBoxLoopY(1, 3)
     this.addBoxLoopX(3, 6, 1)
     this.addBoxLoopY(5, 3)
     this.addBoxLoopY(7, 4)
-    this.goalGroup = this.add.group()
-    this.addGoal(6, 0)
-    this.greenKeyGroup = this.add.group()
-    this.addGreenKey(8, 0)
-    this.greenKeyDoorGroup = this.add.group()
-    this.addGreenKeyDoor(6, 2)
-    this.redKeyGroup = this.add.group()
-    this.addRedKey(6, 3)
-    this.redKeyDoorGroup = this.add.group()
-    this.addRedKeyDoor(8, 2)
     // Add Text
     this.tutorialText = this.add.text(
       420,
@@ -276,19 +336,24 @@ class GameScene extends Phaser.Scene {
   addLevel4() {
     // Add Player
     this.addPlayer(0, 0)
-    // Add Level
-    this.powerUpGroup = this.add.group()
-    this.addPowerUp(0, 4)
+    // Load Level
+    // Add Goal
     this.goalGroup = this.add.group()
     this.addGoal(8, 0)
+    // Add Power Up
+    this.powerUpGroup = this.add.group()
+    this.addPowerUp(0, 4)
+    // Add Keys
     this.greenKeyGroup = this.add.group()
     this.addGreenKey(2, 0)
-    this.greenKeyDoorGroup = this.add.group()
-    this.addGreenKeyDoor(4, 3)
     this.redKeyGroup = this.add.group()
     this.addRedKey(4, 4)
+    // Add Key Doors
+    this.greenKeyDoorGroup = this.add.group()
+    this.addGreenKeyDoor(4, 3)
     this.redKeyDoorGroup = this.add.group()
     this.addRedKeyDoor(8, 1)
+    // Add Boxes
     this.boxGroup = this.add.group()
     this.steelBoxGroup = this.add.group()
     this.addBoxLoopY(1, 5)
@@ -316,11 +381,14 @@ class GameScene extends Phaser.Scene {
   addLevel5() {
     // Add Player
     this.addPlayer(0, 0)
-    // Add Level
-    this.powerUpGroup = this.add.group()
-    this.addPowerUp(0, 2)
+    // Load Level
+    // Add Goal
     this.goalGroup = this.add.group()
     this.addGoal(8, 0)
+    // Add Power Up
+    this.powerUpGroup = this.add.group()
+    this.addPowerUp(0, 2)
+    // Add Keys
     this.greenKeyGroup = this.add.group()
     this.redKeyGroup = this.add.group()
     this.blueKeyGroup = this.add.group()
@@ -329,6 +397,7 @@ class GameScene extends Phaser.Scene {
     this.addGreenKey(6, 1)
     this.addRedKey(4, 1)
     this.addRedKey(5, 2)
+    // Add Key Doors
     this.greenKeyDoorGroup = this.add.group()
     this.redKeyDoorGroup = this.add.group()
     this.blueKeyDoorGroup = this.add.group()
@@ -337,6 +406,7 @@ class GameScene extends Phaser.Scene {
     this.addBlueKeyDoor(6, 4)
     this.addGreenKeyDoor(4, 4)
     this.addRedKeyDoor(5, 4)
+    // Add Boxes
     this.boxGroup = this.add.group()
     this.steelBoxGroup = this.add.group()
     this.addBox(1, 0)
@@ -356,6 +426,185 @@ class GameScene extends Phaser.Scene {
       "You can hold multiple keys at the same time.\nThe number of keys held is listed on the top right.",
       this.tutorialTextLV5Style
     )
+  }
+
+  /**
+   * Loads in Level 6
+   */
+  addLevel6() {
+    // Add Player
+    this.addPlayer(0, 0)
+    // Load Level
+    // Add Goal
+    this.goalGroup = this.add.group()
+    this.addGoal(8, 0)
+    // Add Power Up
+    this.powerUpGroup = this.add.group()
+    this.addPowerUp(0, 4)
+    // Add Keys
+    this.greenKeyGroup = this.add.group()
+    this.redKeyGroup = this.add.group()
+    this.blueKeyGroup = this.add.group()
+    this.addRedKey(1, 1)
+    this.addBlueKey(4, 0)
+    this.addGreenKey(6, 0)
+    // Add Key Doors
+    this.greenKeyDoorGroup = this.add.group()
+    this.redKeyDoorGroup = this.add.group()
+    this.blueKeyDoorGroup = this.add.group()
+    this.addGreenKeyDoor(0, 3)
+    this.addRedKeyDoor(6, 1)
+    this.addBlueKeyDoor(8, 1)
+    // Add Boxes
+    this.boxGroup = this.add.group()
+    this.steelBoxGroup = this.add.group()
+    this.addBox(4, 1)
+    this.addBox(3, 3)
+    this.addBoxLoopY(1, 5, 3, 1)
+    this.addBoxLoopY(3, 2, 0, 1)
+    this.addBoxLoopY(5, 2, 0, 1)
+    this.addBoxLoopY(7, 2, 0, 1)
+    this.addBoxLoopX(2, 6, 3)
+    this.addBoxLoopX(3, 9, 7)
+    this.addBoxLoopX(4, 9, 5, 1)
+    // Add Text
+    this.tutorialText = this.add.text(
+      1065,
+      850,
+      "The game will finish with level 10.\nGood luck!",
+      this.tutorialTextStyle
+    )
+  }
+
+  /**
+   * Loads in Level 7
+   */
+  addLevel7() {
+    // Add Player
+    this.addPlayer(0, 0)
+    // Load Level
+    // Add Goal
+    this.goalGroup = this.add.group()
+    this.addGoal(8, 0)
+    // Add Power Up
+    this.powerUpGroup = this.add.group()
+    this.addPowerUp(6, 0)
+    // Add Keys
+    this.greenKeyGroup = this.add.group()
+    this.redKeyGroup = this.add.group()
+    this.blueKeyGroup = this.add.group()
+    this.addBlueKey(3, 2)
+    this.addRedKey(6, 1)
+    this.addGreenKey(0, 4)
+    // Add Key Doors
+    this.greenKeyDoorGroup = this.add.group()
+    this.redKeyDoorGroup = this.add.group()
+    this.blueKeyDoorGroup = this.add.group()
+    this.addGreenKeyDoor(8, 1)
+    this.addRedKeyDoor(8, 2)
+    this.addBlueKeyDoor(8, 3)
+    // Add Boxes
+    this.boxGroup = this.add.group()
+    this.steelBoxGroup = this.add.group()
+    this.addBox(0, 3, 1)
+    this.addBox(3, 1, 1)
+    this.addBox(5, 4, 1)
+    this.addBoxLoopY(7, 4, 0, 1)
+    this.addBoxLoopX(1, 3)
+    this.addBoxLoopX(1, 7, 4)
+    this.addBoxLoopX(2, 7)
+    this.addBoxLoopX(3, 7, 1)
+    this.addBoxLoopX(4, 5)
+    this.addBoxLoopX(4, 9, 6)
+  }
+
+  /**
+   * Loads in Level 8
+   */
+  addLevel8() {
+    // Add Player
+    this.addPlayer(0, 0)
+    // Load Level
+    // Add Goal
+    this.goalGroup = this.add.group()
+    this.addGoal(8, 0)
+    // Add Power Up
+    this.powerUpGroup = this.add.group()
+    this.addPowerUp(1, 2)
+    // Add Keys
+    this.greenKeyGroup = this.add.group()
+    this.redKeyGroup = this.add.group()
+    this.blueKeyGroup = this.add.group()
+    this.addBlueKey(2, 0)
+    this.addRedKey(4, 1)
+    this.addGreenKey(6, 2)
+    this.addBlueKey(4, 0)
+    this.addRedKey(2, 2)
+    this.addGreenKey(6, 0)
+    this.addBlueKey(5, 1)
+    this.addRedKey(3, 1)
+    this.addGreenKey(4, 2)
+    // Add Key Doors
+    this.greenKeyDoorGroup = this.add.group()
+    this.redKeyDoorGroup = this.add.group()
+    this.blueKeyDoorGroup = this.add.group()
+    this.addGreenKeyDoor(0, 4)
+    this.addRedKeyDoor(1, 4)
+    this.addBlueKeyDoor(2, 4)
+    this.addGreenKeyDoor(3, 4)
+    this.addRedKeyDoor(4, 4)
+    this.addBlueKeyDoor(5, 4)
+    this.addGreenKeyDoor(6, 4)
+    this.addRedKeyDoor(7, 4)
+    this.addBlueKeyDoor(8, 4)
+    // Add Boxes
+    this.boxGroup = this.add.group()
+    this.steelBoxGroup = this.add.group()
+    this.addBoxLoopY(1, 2, 0, 1)
+    this.addBoxLoopY(2, 3)
+    this.addBoxLoopY(3, 3)
+    this.addBoxLoopY(4, 3)
+    this.addBoxLoopY(5, 3)
+    this.addBoxLoopY(6, 3)
+    this.addBoxLoopY(7, 3, 0, 1)
+    this.addBoxLoopX(3, 8, 1, 1)
+  }
+
+  /**
+   * Loads in Level 9
+   */
+  addLevel9() {
+    // Add Player
+    this.addPlayer(0, 0)
+    // Load Level
+    // Add Goal
+    this.goalGroup = this.add.group()
+    this.addGoal(8, 0)
+    // Add Power Up
+    this.powerUpGroup = this.add.group()
+    this.addPowerUp(0, 4)
+    // Add Keys
+    this.greenKeyGroup = this.add.group()
+    this.redKeyGroup = this.add.group()
+    this.blueKeyGroup = this.add.group()
+    this.addBlueKey(4, 0)
+    this.addRedKey(2, 0)
+    this.addGreenKey(8, 4)
+    // Add Key Doors
+    this.greenKeyDoorGroup = this.add.group()
+    this.redKeyDoorGroup = this.add.group()
+    this.blueKeyDoorGroup = this.add.group()
+    this.addGreenKeyDoor(2, 1)
+    this.addRedKeyDoor(4, 1)
+    this.addBlueKeyDoor(0, 4)
+    // Add Boxes
+    this.boxGroup = this.add.group()
+    this.steelBoxGroup = this.add.group()
+    this.addBox(8, 1)
+    this.addBoxLoopY(1, 2, 0, 1)
+    this.addBoxLoopY(3, 2, 0, 1)
+    this.addBoxLoopY(5, 2, 0, 1)
+    this.addBoxLoopY(7, 2, 0, 1)
   }
 
   /**
@@ -409,12 +658,6 @@ class GameScene extends Phaser.Scene {
     this.blueKeyCountTextStyle = {
       font: "100px Arial",
       fill: "#3c78d8ff",
-      align: "center",
-    }
-    this.timerText = null
-    this.timerTextStyle = {
-      font: "50px Arial",
-      fill: "#ffffff",
       align: "center",
     }
   }
@@ -492,9 +735,10 @@ class GameScene extends Phaser.Scene {
       function (playerCollide, boxCollide) {
         if (powerUpActive != true) {
           playerCollide.destroy()
+          powerUpActive = false
           greenKeysHeld = 0
           redKeysHeld = 0
-          powerUpActive = false
+          blueKeysHeld = 0
           timesLost++
           this.scene.start("retryLevelScene", {
             level: this.currentLevel,
@@ -513,6 +757,7 @@ class GameScene extends Phaser.Scene {
         powerUpActive = false
         greenKeysHeld = 0
         redKeysHeld = 0
+        blueKeysHeld = 0
         timesLost++
         this.scene.start("retryLevelScene", {
           level: this.currentLevel,
