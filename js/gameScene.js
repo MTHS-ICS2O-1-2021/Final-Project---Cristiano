@@ -926,12 +926,24 @@ class GameScene extends Phaser.Scene {
       this.playerGroup,
       this.goalGroup,
       function (playerCollide, goalCollide) {
-        console.log("Finished Level " + this.currentLevel)
-        powerUpActive = false
-        this.scene.start("loadLevelScene", {
-          level: this.currentLevel + 1,
-          time: timeCompleted,
-        })
+        if (this.currentLevel < 10) {
+          console.log("Finished Level " + this.currentLevel)
+          powerUpActive = false
+          greenKeysHeld = 0
+          redKeysHeld = 0
+          blueKeysHeld = 0
+          this.scene.start("loadLevelScene", {
+            level: this.currentLevel + 1,
+            time: timeCompleted,
+          })
+        } else {
+          console.log("Finished Level " + this.currentLevel)
+          powerUpActive = false
+          greenKeysHeld = 0
+          redKeysHeld = 0
+          blueKeysHeld = 0
+          this.scene.start("beatGameScene", { time: timeCompleted })
+        }
       }.bind(this)
     )
   }
