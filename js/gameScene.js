@@ -582,29 +582,33 @@ class GameScene extends Phaser.Scene {
     this.addGoal(8, 0)
     // Add Power Up
     this.powerUpGroup = this.add.group()
-    this.addPowerUp(0, 4)
+    this.addPowerUp(1, 3)
     // Add Keys
     this.greenKeyGroup = this.add.group()
     this.redKeyGroup = this.add.group()
     this.blueKeyGroup = this.add.group()
-    this.addBlueKey(4, 0)
+    this.addBlueKey(6, 0)
     this.addRedKey(2, 0)
-    this.addGreenKey(8, 4)
+    this.addGreenKey(4, 0)
     // Add Key Doors
     this.greenKeyDoorGroup = this.add.group()
     this.redKeyDoorGroup = this.add.group()
     this.blueKeyDoorGroup = this.add.group()
     this.addGreenKeyDoor(2, 1)
-    this.addRedKeyDoor(4, 1)
-    this.addBlueKeyDoor(0, 4)
+    this.addRedKeyDoor(6, 1)
+    this.addBlueKeyDoor(1, 3)
     // Add Boxes
     this.boxGroup = this.add.group()
     this.steelBoxGroup = this.add.group()
+    this.addBox(1, 2)
     this.addBox(8, 1)
     this.addBoxLoopY(1, 2, 0, 1)
     this.addBoxLoopY(3, 2, 0, 1)
     this.addBoxLoopY(5, 2, 0, 1)
+    this.addBoxLoopY(5, 4, 2)
     this.addBoxLoopY(7, 2, 0, 1)
+    this.addBoxLoopY(7, 4, 2)
+    this.addBoxLoopX(3, 4, 2)
   }
 
   /**
