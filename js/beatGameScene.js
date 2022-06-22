@@ -71,12 +71,7 @@ class BeatGameScene extends Phaser.Scene {
     this.background = this.add.image(0, 0, "background")
     this.background.setOrigin(0, 0)
     this.winText = this.add
-      .text(
-        1920 / 2,
-        1080 / 2 - 200,
-        "You win!",
-        this.textStyle
-      )
+      .text(1920 / 2, 1080 / 2 - 200, "You win!", this.textStyle)
       .setOrigin(0.5)
     this.replayText = this.add
       .text(

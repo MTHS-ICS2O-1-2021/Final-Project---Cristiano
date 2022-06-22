@@ -654,8 +654,8 @@ class GameScene extends Phaser.Scene {
     this.addBoxLoopY(2, 4, 2, 1)
     this.addBoxLoopY(4, 3)
     this.addBoxLoopY(5, 3)
-    this.addBoxLoopY(6, 4, 0 ,1)
-    this.addBoxLoopX(3, 6, 3 ,1)
+    this.addBoxLoopY(6, 4, 0, 1)
+    this.addBoxLoopX(3, 6, 3, 1)
   }
 
   /**
