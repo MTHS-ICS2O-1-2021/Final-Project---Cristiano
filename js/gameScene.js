@@ -38,6 +38,8 @@ class GameScene extends Phaser.Scene {
       this.addLevel8()
     } else if (this.currentLevel === 9) {
       this.addLevel9()
+    } else if (this.currentLevel === 10) {
+      this.addLevel10()
     } else {
       console.log("Error: unknown level ID. Loading the test level.")
       this.addLevelTest()
@@ -609,6 +611,51 @@ class GameScene extends Phaser.Scene {
     this.addBoxLoopY(7, 2, 0, 1)
     this.addBoxLoopY(7, 4, 2)
     this.addBoxLoopX(3, 4, 2)
+  }
+
+  /**
+   * Loads in Level 10
+   */
+  addLevel10() {
+    // Add Player
+    this.addPlayer(0, 0)
+    // Load Level
+    // Add Goal
+    this.goalGroup = this.add.group()
+    this.addGoal(8, 0)
+    // Add Power Up
+    this.powerUpGroup = this.add.group()
+    this.addPowerUp(2, 4)
+    // Add Keys
+    this.greenKeyGroup = this.add.group()
+    this.redKeyGroup = this.add.group()
+    this.blueKeyGroup = this.add.group()
+    this.addBlueKey(0, 4)
+    this.addBlueKey(3, 0)
+    this.addGreenKey(3, 1)
+    this.addRedKey(5, 2)
+    // Add Key Doors
+    this.greenKeyDoorGroup = this.add.group()
+    this.redKeyDoorGroup = this.add.group()
+    this.blueKeyDoorGroup = this.add.group()
+    this.addBlueKeyDoor(2, 1)
+    this.addGreenKeyDoor(2, 4)
+    this.addBlueKeyDoor(4, 4)
+    this.addRedKeyDoor(6, 4)
+    // Add Boxes
+    this.boxGroup = this.add.group()
+    this.steelBoxGroup = this.add.group()
+    this.addBox(2, 0, 1)
+    this.addBox(3, 0)
+    this.addBox(3, 2)
+    this.addBox(7, 3, 1)
+    this.addBox(8, 1, 1)
+    this.addBoxLoopY(0, 4, 1, 1)
+    this.addBoxLoopY(2, 4, 2, 1)
+    this.addBoxLoopY(4, 3)
+    this.addBoxLoopY(5, 3)
+    this.addBoxLoopY(6, 4, 0 ,1)
+    this.addBoxLoopX(3, 6, 3 ,1)
   }
 
   /**
