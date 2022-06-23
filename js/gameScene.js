@@ -674,6 +674,7 @@ class GameScene extends Phaser.Scene {
     this.bottomGui = null
     this.sideGui = null
     this.startButton = null
+    this.gameBackground = null
 
     // Text Elements
     this.loseText = null
@@ -743,6 +744,7 @@ class GameScene extends Phaser.Scene {
     this.load.image("blueKeyDoorImage", "assets/blueKeyDoor.png")
     this.load.image("bottomGui", "assets/bottomGUI.png")
     this.load.image("sideGui", "assets/sideGUI.png")
+    this.load.image("gameBackground", "assets/gameBackground.png")
   }
 
   /**
@@ -750,6 +752,8 @@ class GameScene extends Phaser.Scene {
    */
   create(data) {
     // Load the current level
+    this.gameBackground = this.add.image(0, 0, "gameBackground")
+    this.gameBackground.setOrigin(0, 0)
     this.loadLevel()
     console.log("Level " + this.currentLevel + " Loaded.")
     // Load GUI Elements
