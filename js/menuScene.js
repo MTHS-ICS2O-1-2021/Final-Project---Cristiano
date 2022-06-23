@@ -32,13 +32,14 @@ class MenuScene extends Phaser.Scene {
       align: "center",
     }
     this.startButton = null
+    this.background = null
   }
 
   /**
    * Initializes groups
    */
   init(data) {
-    this.cameras.main.setBackgroundColor("#b21d1d")
+    this.cameras.main.setBackgroundColor("#000000")
   }
 
   /**
@@ -48,14 +49,17 @@ class MenuScene extends Phaser.Scene {
     console.log("Menu Scene")
 
     this.load.image("startButton", "assets/startButton.png")
+    this.load.image("background", "assets/menuBackground.png")
   }
 
   /**
    * Creates varibles and functions
    */
   create(data) {
+    this.background = this.add.image(0, 0, "background")
+    this.background.setOrigin(0, 0)
     this.menuText = this.add
-      .text(1920 / 2, 1080 / 2 - 200, "Test", this.menuTextStyle)
+      .text(1920 / 2, 1080 / 2 - 200, "Box World", this.menuTextStyle)
       .setOrigin(0.5)
     this.startButton = this.add.sprite(1920 / 2, 1080 / 2, "startButton")
     this.startButton.setInteractive({ useHandCursor: true })
@@ -65,7 +69,13 @@ class MenuScene extends Phaser.Scene {
   /**
    * Updates every milisecond
    */
-  update(time, delta) {}
+  update(time, delta) {
+    const keyEnter = this.input.keyboard.addKey("ENTER")
+
+    if (keyEnter.isDown === true) {
+      this.onClick()
+    }
+  }
 }
 
 export default MenuScene

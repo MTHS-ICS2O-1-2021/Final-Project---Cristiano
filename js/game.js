@@ -4,13 +4,14 @@
 // Final-Project---Cristiano
 // June 7 2022
 
-const debugMode = true
+const debugMode = false
 
 import SplashScene from "./splashScene.js"
 import MenuScene from "./menuScene.js"
 import GameScene from "./gameScene.js"
 import LoadLevelScene from "./loadLevelScene.js"
 import RetryLevelScene from "./retryLevelScene.js"
+import BeatGameScene from "./beatGameScene.js"
 
 // Scenes
 const splashScene = new SplashScene()
@@ -18,6 +19,7 @@ const menuScene = new MenuScene()
 const gameScene = new GameScene()
 const loadlevelScene = new LoadLevelScene()
 const retrylevelScene = new RetryLevelScene()
+const beatGameScene = new BeatGameScene()
 
 // Game Settings
 const config = {
@@ -45,10 +47,11 @@ game.scene.add("menuScene", menuScene)
 game.scene.add("gameScene", gameScene)
 game.scene.add("loadlevelScene", loadlevelScene)
 game.scene.add("retrylevelScene", retrylevelScene)
+game.scene.add("beatGameScene", beatGameScene)
 
 if (debugMode == true) {
   game.scene.start("gameScene", {
-    level: 9,
+    level: 1,
     timesLost: 0,
   })
 } else {

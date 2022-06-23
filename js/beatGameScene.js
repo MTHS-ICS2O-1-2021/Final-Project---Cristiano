@@ -3,12 +3,12 @@
 // Cristiano
 // Final-Project---Cristiano
 // June 7 2022
-// Load Level Scene
+// Beat Game Scene
 
 /**
  * Phaser Scene
  */
-class LoadLevelScene extends Phaser.Scene {
+class BeatGameScene extends Phaser.Scene {
   /**
    * Takes the player to gameScene
    */
@@ -23,24 +23,22 @@ class LoadLevelScene extends Phaser.Scene {
    * Constructs varibles
    */
   constructor() {
-    super({ key: "loadLevelScene" })
+    super({ key: "beatGameScene" })
 
     // Button Element
     this.startButton = null
 
     // Varible Elements
-    this.nextLevel = null
     this.timeCompleted = null
 
+    // GUI Element
+    this.background = null
+
     // Text Elements
+    this.winText = null
+    this.replayText = null
     this.timeText = null
-    this.timeTextStyle = {
-      font: "75px Arial",
-      fill: "#ffffffff",
-      align: "center",
-    }
-    this.nextLevelText = null
-    this.nextLevelTextStyle = {
+    this.textStyle = {
       font: "75px Arial",
       fill: "#ffffffff",
       align: "center",
@@ -53,7 +51,6 @@ class LoadLevelScene extends Phaser.Scene {
   init(data) {
     this.cameras.main.setBackgroundColor("#000000")
 
-    this.nextLevel = data.level
     this.timeCompleted = (data.time / 1000).toFixed(2)
   }
 
@@ -61,34 +58,35 @@ class LoadLevelScene extends Phaser.Scene {
    * Preloads files
    */
   preload() {
-    console.log("Load Level Scene")
+    console.log("Beat Game Scene")
 
-    this.load.image("startButton", "assets/startButton.png")
+    this.load.image("background", "assets/beatGameBackground.png")
   }
 
   /**
    * Creates varibles and functions
    */
   create(data) {
-    // Add Button
-    this.startButton = this.add.sprite(1920 / 2, 1080 / 2, "startButton")
-    this.startButton.setInteractive({ useHandCursor: true })
-    this.startButton.on("pointerdown", () => this.onClick())
     // Add Text
-    this.timeText = this.add
-      .text(
-        1920 / 2,
-        1080 / 2 - 200,
-        "Your current time is " + this.timeCompleted + " seconds!",
-        this.timeTextStyle
-      )
+    this.background = this.add.image(0, 0, "background")
+    this.background.setOrigin(0, 0)
+    this.winText = this.add
+      .text(1920 / 2, 1080 / 2 - 200, "You win!", this.textStyle)
       .setOrigin(0.5)
-    this.nextLevelText = this.add
+    this.replayText = this.add
       .text(
         1920 / 2,
         1080 / 2 + 200,
-        "Up next: Level " + this.nextLevel,
-        this.nextLevelTextStyle
+        "Refresh the page to replay the game.",
+        this.textStyle
+      )
+      .setOrigin(0.5)
+    this.timeText = this.add
+      .text(
+        1920 / 2,
+        1080 / 2,
+        "You beat the game in " + this.timeCompleted + " seconds!",
+        this.textStyle
       )
       .setOrigin(0.5)
   }
@@ -105,4 +103,4 @@ class LoadLevelScene extends Phaser.Scene {
   }
 }
 
-export default LoadLevelScene
+export default BeatGameScene
