@@ -71,14 +71,16 @@ class LoadLevelScene extends Phaser.Scene {
    */
   create(data) {
     // Add Button
-    this.startButton = this.add.sprite(1920 / 2, 1080 / 2, "startButton")
+    this.startButton = this.add
+      .sprite(1920 / 2, 1080 / 2, "startButton")
+      .setScale(2.0)
     this.startButton.setInteractive({ useHandCursor: true })
     this.startButton.on("pointerdown", () => this.onClick())
     // Add Text
     this.timeText = this.add
       .text(
         1920 / 2,
-        1080 / 2 - 200,
+        1080 / 2 - 250,
         "Your current time is " + this.timeCompleted + " seconds!",
         this.timeTextStyle
       )
@@ -86,7 +88,7 @@ class LoadLevelScene extends Phaser.Scene {
     this.nextLevelText = this.add
       .text(
         1920 / 2,
-        1080 / 2 + 200,
+        1080 / 2 + 250,
         "Up next: Level " + this.nextLevel,
         this.nextLevelTextStyle
       )

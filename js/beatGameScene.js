@@ -60,7 +60,7 @@ class BeatGameScene extends Phaser.Scene {
   preload() {
     console.log("Beat Game Scene")
 
-    this.load.image("background", "assets/beatGameBackground.png")
+    this.load.image("beatgamebackground", "assets/beatGameBackground.png")
   }
 
   /**
@@ -68,8 +68,8 @@ class BeatGameScene extends Phaser.Scene {
    */
   create(data) {
     // Add Text
-    this.background = this.add.image(0, 0, "background")
-    this.background.setOrigin(0, 0)
+    this.beatgamebackground = this.add.image(0, 0, "beatgamebackground")
+    this.beatgamebackground.setOrigin(0, 0)
     this.winText = this.add
       .text(1920 / 2, 1080 / 2 - 200, "You win!", this.textStyle)
       .setOrigin(0.5)
@@ -77,7 +77,7 @@ class BeatGameScene extends Phaser.Scene {
       .text(
         1920 / 2,
         1080 / 2 + 200,
-        "Refresh the page to replay the game.",
+        "Refresh the page to try again.",
         this.textStyle
       )
       .setOrigin(0.5)
